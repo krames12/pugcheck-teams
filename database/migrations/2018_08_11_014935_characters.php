@@ -15,6 +15,7 @@ class Characters extends Migration
     {
         Schema::create('characters', function(Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->nullable();
             $table->string('name');
             $table->integer('class');
             $table->integer('race');
