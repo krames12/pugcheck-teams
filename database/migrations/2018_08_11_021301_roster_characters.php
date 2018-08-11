@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CharacterGear extends Migration
+class RosterCharacters extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CharacterGear extends Migration
      */
     public function up()
     {
-        Schema::create('character_gear', function(Blueprint $table) {
+        Schema::create('roster_character', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('blizz_id');
-            $table->integer('character_id');
-            $table->string('item_slot');
-            $table->string('name');
-            $table->integer('item_level');
+            $table->integer('roster_id');
+            $table->string('character_id');
+            $table->string('main_spec');
+            $table->string('off_spec');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CharacterGear extends Migration
      */
     public function down()
     {
-        Schema::drop('character_gear');
+        //
     }
 }
