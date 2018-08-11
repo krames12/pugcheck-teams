@@ -28,6 +28,6 @@ class Rosters extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('rosters');
     }
 }

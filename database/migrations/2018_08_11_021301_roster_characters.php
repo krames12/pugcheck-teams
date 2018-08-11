@@ -13,12 +13,12 @@ class RosterCharacters extends Migration
      */
     public function up()
     {
-        Schema::create('roster_character', function(Blueprint $table) {
+        Schema::create('roster_characters', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('roster_id');
             $table->string('character_id');
-            $table->string('main_spec');
-            $table->string('off_spec');
+            $table->enum('main_spec', ['tank', 'healer', 'rdps', 'mdps']);
+            $table->enum('off_spec', ['tank', 'healer', 'rdps', 'mdps']);
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class RosterCharacters extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('roster_characters');
     }
 }
