@@ -14,6 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/characters/import', 'CharactersController@import');
+Route::post('/characters/import', 'CharactersController@importCharacter');
 
 Auth::routes();
 
