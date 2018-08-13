@@ -15,8 +15,8 @@
         {{ csrf_field() }}
         <label for="name">Character Name</label>
         <input type="text" id="name" name="name" />
-        <label for="server">Server</label>
-        <input type="text" id="server" name="server" />
+        <label for="realm">Realm</label>
+        <input type="text" id="realm" name="realm" />
         <button type="submit">Import Character</button>
     </form>
 </body>
