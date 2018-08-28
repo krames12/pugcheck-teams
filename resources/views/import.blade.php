@@ -16,8 +16,10 @@
         <label for="name">Character Name</label>
         <input type="text" id="name" name="name" />
         <label for="realm">Realm</label>
-        <input type="text" id="realm" name="realm" />
+        <input type="text" id="realm" name="realm"  />
         <button type="submit">Import Character</button>
     </form>
+
+    @include ('layouts.errors')
 </body>
 </html>

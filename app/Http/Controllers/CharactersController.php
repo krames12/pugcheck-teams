@@ -57,6 +57,11 @@ class CharactersController extends Controller
      */
     public function importCharacter()
     {
+        $this->validate(request(), [
+            'name'  => 'required',
+            'realm' => 'required'
+        ]);
+
         $realmSlug = str_slug(strtolower(request('realm')), '-');
         $requestUrl = "https://us.api.battle.net/wow/character/".$realmSlug."/".request('name')."?fields=items&locale=en_US&apikey=".env('BLIZZ_KEY');
 
