@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Roster;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class RosterController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,9 @@ class RosterController extends Controller
      */
     public function index()
     {
-        //
+        $rosters = Roster::all();
+
+        return view('rosters.index', compact('rosters'));
     }
 
     /**
@@ -35,18 +43,33 @@ class RosterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(request(), [
+            'name'    => 'required',
+            'realm'   => 'required',
+            'faction' => 'required'
+        ]);
+
+        $newRoster = new Roster();
+
+        $newRoster->name = $request->name;
+        $newRoster->realm = $request->realm;
+        $newRoster->faction = $request->faction;
+        $newRoster->owner_id = auth()->id();
+
+        $newRoster->save();
+
+        return redirect("rosters/$newRoster->id");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $roster
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Roster $roster)
     {
-        //
+        return view('rosters.view', compact('roster'));
     }
 
     /**

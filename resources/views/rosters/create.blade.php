@@ -16,6 +16,7 @@
             <option value="1">Horde</option>
         </select>
         <button type="submit">Create Roster</button>
-
     </form>
+
+    @include('layouts.errors')
 @endsection

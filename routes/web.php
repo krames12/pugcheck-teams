@@ -19,6 +19,7 @@ Route::get('/characters/import', 'CharactersController@import');
 Route::post('/characters/import', 'CharactersController@importCharacter');
 
 // Roster Routes
+Route::get('/rosters', 'RosterController@index');
 Route::get('/rosters/create', 'RosterController@create');
 Route::post('/rosters/create', 'RosterController@store');
 Route::get('/rosters/{roster}', 'RosterController@show');
