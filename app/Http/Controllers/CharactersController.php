@@ -49,7 +49,7 @@ class CharactersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function import() {
-        return view('import');
+        return view('characters.import');
     }
 
     /**

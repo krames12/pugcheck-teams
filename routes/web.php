@@ -14,8 +14,17 @@
 Route::get('/', function () {
     return view('welcome');
 });
+// Character Routes
 Route::get('/characters/import', 'CharactersController@import');
 Route::post('/characters/import', 'CharactersController@importCharacter');
+
+// Roster Routes
+Route::get('/rosters/{roster}', 'RosterController@show');
+Route::get('/rosters/create', 'RosterController@create');
+Route::post('/rosters/create', 'RosterController@store');
+Route::get('/rosters/{roster}/edit', 'RosterController@update');
+Route::patch('/rosters/{roster}/edit', 'RosterController@update');
+Route::delete('/rosters/{roster}', 'RosterController@destroy');
 
 Auth::routes();
 
