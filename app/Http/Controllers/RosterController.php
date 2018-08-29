@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class RosterController extends Controller
 {
@@ -23,7 +24,7 @@ class RosterController extends Controller
      */
     public function create()
     {
-        //
+        return view('rosters.create');
     }
 
     /**
