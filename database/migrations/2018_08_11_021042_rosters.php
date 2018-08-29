@@ -17,7 +17,7 @@ class Rosters extends Migration
             $table->increments('id');
             $table->integer('owner_id');
             $table->string('name');
-            $table->string('server');
+            $table->string('realm');
             $table->tinyInteger('faction');
             $table->timestamps();
         });
