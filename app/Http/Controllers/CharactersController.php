@@ -69,6 +69,8 @@ class CharactersController extends Controller
         try {
             $res = $client->request('GET', $requestUrl);
             $this->handleCharacterImport(json_decode($res->getBody()));
+            // Redirect to import page.
+            return redirect('characters/import');
         } catch (RequestException $e) {
             if($e->hasResponse()) {
                 echo Psr7\str($e->getResponse());
@@ -109,9 +111,6 @@ class CharactersController extends Controller
 
                 $newItem->save();
             }
-
-            // Redirect to import page.
-            redirect('import');
         } else {
             $existingCharacter = Character::find($characterExists->id);
 

@@ -11,7 +11,7 @@
                 <input type="text"
                        id="name" name="name"
                        class="w-full border rounded py-2 px-2"
-                       placeholder="Character Name"
+                       placeholder="Roster Name"
                        required
                 />
             </div>
