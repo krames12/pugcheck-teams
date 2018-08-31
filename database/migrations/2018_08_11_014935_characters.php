@@ -22,6 +22,7 @@ class Characters extends Migration
             $table->integer('race');
             $table->tinyInteger('faction');
             $table->integer('item_level');
+            $table->integer('azerite_level')->nullable();
             $table->timestamps();
         });
     }
