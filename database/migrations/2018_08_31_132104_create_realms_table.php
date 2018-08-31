@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Rosters extends Migration
+class CreateRealmsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class Rosters extends Migration
      */
     public function up()
     {
-        Schema::create('rosters', function(Blueprint $table) {
+        Schema::create('realms', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('owner_id');
             $table->string('name');
-            $table->integer('realm');
-            $table->tinyInteger('faction');
+            $table->string('slug');
+            $table->enum('region', ['us', 'eu']);
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class Rosters extends Migration
      */
     public function down()
     {
-        Schema::drop('rosters');
+        Schema::dropIfExists('realms');
     }
 }
