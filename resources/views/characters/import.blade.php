@@ -11,7 +11,11 @@
             </div>
             <div class="mb-4">
                 <label for="realm" class="block">Realm</label>
-                <input type="text" id="realm" name="realm" class="w-full border py-2 px-2 rounded" />
+                <select name="realm" id="realm" class="w-full border py-2 px-2 rounded">
+                    @foreach($realms as $realm)
+                        <option value="{{ $realm->id }}">{{ $realm->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div>
                 <button type="submit" class="btn bg-blue rounded text-white">Import Character</button>

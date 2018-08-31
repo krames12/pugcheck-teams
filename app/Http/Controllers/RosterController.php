@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Roster;
+use App\Realm;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -32,7 +33,9 @@ class RosterController extends Controller
      */
     public function create()
     {
-        return view('rosters.create');
+        $realms = Realm::all();
+
+        return view('rosters.create', compact('realms'));
     }
 
     /**

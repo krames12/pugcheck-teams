@@ -17,11 +17,11 @@
             </div>
             <div class="mb-6">
                 <label for="realm" class="block text-grey-darker">Realm</label>
-                <input type="text"
-                       id="realm" name="realm"
-                       class="w-full border rounded py-2 px-2"
-                       required
-                />
+                <select name="realm" id="realm" class="w-full border rounded py-2 px-2">
+                    @foreach($realms as $realm)
+                        <option value="{{ $realm->id }}">{{ $realm->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="mb-6">
                 <label for="faction" class="block text-grey-darker">Faction</label>

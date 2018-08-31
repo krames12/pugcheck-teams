@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Character;
 use App\CharacterGear;
+use App\Realm;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
@@ -51,7 +52,7 @@ class CharactersController extends Controller
     public function import() {
         $realms = \App\Realm::all();
 
-        return view('characters.import');
+        return view('characters.import', compact('realms'));
     }
 
     /**
@@ -64,8 +65,8 @@ class CharactersController extends Controller
             'realm' => 'required'
         ]);
 
-        $realmSlug = str_slug(strtolower(request('realm')), '-');
-        $requestUrl = "https://us.api.battle.net/wow/character/".$realmSlug."/".request('name')."?fields=items&locale=en_US&apikey=".env('BLIZZ_KEY');
+        $realm = Realm::find(request('realm'));
+        $requestUrl = "https://us.api.battle.net/wow/character/".$realm->slug."/".request('name')."?fields=items&locale=en_US&apikey=".env('BLIZZ_KEY');
 
         $client = new Client();
         try {
@@ -90,7 +91,7 @@ class CharactersController extends Controller
             $newCharacter = new Character();
 
             $newCharacter->name = htmlspecialchars($character->name);
-            $newCharacter->realm = $character->realm;
+            $newCharacter->realm = request('realm');
             $newCharacter->class = $character->class;
             $newCharacter->race = $character->race;
             $newCharacter->faction = $character->faction;
