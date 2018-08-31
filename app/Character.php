@@ -8,5 +8,8 @@ use Illuminate\Http\Response;
 
 class Character extends Model
 {
-
+    public function gear()
+    {
+        return $this->hasMany('\App\CharacterGear');
+    }
 }

@@ -49,6 +49,8 @@ class CharactersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function import() {
+        $realms = \App\Realm::all();
+
         return view('characters.import');
     }
 
