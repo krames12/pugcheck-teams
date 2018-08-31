@@ -19,6 +19,6 @@ class Character extends Model
 
     public function rosters()
     {
-        return $this->hasManyThrough(Roster::class, RosterCharacter::class);
+        return $this->belongsToMany(Roster::class, 'roster_characters');
     }
 }

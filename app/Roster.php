@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Character;
 
 class Roster extends Model
 {
@@ -10,10 +11,6 @@ class Roster extends Model
 
     public function characters()
     {
-//        return $this->belongsToMany('\App\Character');
-        return $this->hasManyThrough(
-            'App\Character',
-            'App\RosterCharacter'
-        );
+        return $this->belongsToMany(Character::class, 'roster_characters');
     }
 }
