@@ -10,6 +10,10 @@ class Roster extends Model
 
     public function characters()
     {
-        return $this->belongsToMany('\App\Character');
+//        return $this->belongsToMany('\App\Character');
+        return $this->hasManyThrough(
+            'App\Character',
+            'App\RosterCharacter'
+        );
     }
 }
