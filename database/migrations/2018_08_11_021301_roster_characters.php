@@ -17,8 +17,8 @@ class RosterCharacters extends Migration
             $table->increments('id');
             $table->integer('roster_id');
             $table->string('character_id');
-            $table->enum('main_spec', ['tank', 'healer', 'rdps', 'mdps']);
-            $table->enum('off_spec', ['tank', 'healer', 'rdps', 'mdps']);
+            $table->enum('main_spec', ['unassigned', 'tank', 'healer', 'rdps', 'mdps']);
+            $table->enum('off_spec', ['unassigned', 'tank', 'healer', 'rdps', 'mdps']);
             $table->timestamps();
         });
     }
