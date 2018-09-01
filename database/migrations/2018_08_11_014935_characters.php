@@ -17,11 +17,12 @@ class Characters extends Migration
             $table->increments('id');
             $table->integer('user_id')->nullable();
             $table->string('name');
-            $table->string('realm');
+            $table->integer('realm');
             $table->integer('class');
             $table->integer('race');
             $table->tinyInteger('faction');
             $table->integer('item_level');
+            $table->integer('azerite_level')->nullable();
             $table->timestamps();
         });
     }

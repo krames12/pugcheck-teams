@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Roster;
+use App\Realm;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7;
+use GuzzleHttp\Exception\RequestException;
 
 class RosterController extends Controller
 {
@@ -32,7 +37,9 @@ class RosterController extends Controller
      */
     public function create()
     {
-        return view('rosters.create');
+        $realms = Realm::all();
+
+        return view('rosters.create', compact('realms'));
     }
 
     /**
@@ -104,5 +111,19 @@ class RosterController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Import members from a guild to the roster.
+     *
+     * @param int $rosterId
+     * @return \Illuminate\Http\Response
+    */
+    public function importGuild($rosterId)
+    {
+        $client = new Client();
+        $guild = Roster::find($rosterId);
+        $apiUrl = "https://us.api.battle.net/wow/guild/Proudmoore/The%20Beard%20of%20Zeus?fields=members&locale=en_US&apikey=".env('BLIZZ_KEY');
+        return view('rosters.import');
     }
 }
