@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use App\CharacterGear;
+use App\Realm;
 use App\Roster;
 use App\RosterCharacter;
 
@@ -20,5 +21,11 @@ class Character extends Model
     public function rosters()
     {
         return $this->belongsToMany(Roster::class, 'roster_characters');
+    }
+
+    public function realmName()
+    {
+        $realm = Realm::where('id', $this->realm)->first();
+        return $realm->name;
     }
 }
