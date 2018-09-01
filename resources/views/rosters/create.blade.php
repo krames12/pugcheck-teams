@@ -30,6 +30,10 @@
                     <option value="1">Horde</option>
                 </select>
             </div>
+            <div class="mb-2">
+                <input type="checkbox" name="import" id="import-guild-checkbox">
+                <label for="import-guild-checkbox">Import Guild</label>
+            </div>
             <button type="submit" class="btn bg-blue text-white ">Create Roster</button>
         </form>
     </div>
