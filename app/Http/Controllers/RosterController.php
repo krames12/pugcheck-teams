@@ -59,7 +59,7 @@ class RosterController extends Controller
         $newRoster = new Roster();
 
         $newRoster->name = $request->name;
-        $newRoster->realm = $request->realm;
+        $newRoster->realm_id = $request->realm;
         $newRoster->faction = $request->faction;
         $newRoster->owner_id = auth()->id();
 
@@ -122,8 +122,8 @@ class RosterController extends Controller
     public function importGuild($rosterId)
     {
         $roster = Roster::find($rosterId);
-        $realmName = $roster->realmName();
-        $requestUrl = "https://us.api.battle.net/wow/guild/$realmName/$roster->name?fields=members&locale=en_US&apikey=".env('BLIZZ_KEY');
+        $realmSlug = $roster->realm->slug;
+        $requestUrl = "https://us.api.battle.net/wow/guild/$realmSlug/$roster->name?fields=members&locale=en_US&apikey=".env('BLIZZ_KEY');
 
         $client = new Client();
         try {
