@@ -15,9 +15,8 @@ class Roster extends Model
         return $this->belongsToMany(Character::class, 'roster_characters');
     }
 
-    public function realmName()
+    public function realm()
     {
-        $realm = Realm::where('id', $this->realm)->first();
-        return $realm->name;
+        return $this->belongsTo(Realm::class);
     }
 }

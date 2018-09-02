@@ -72,6 +72,7 @@ class CharactersController extends Controller
         try {
             $res = $client->request('GET', $requestUrl);
             $this->handleCharacterImport(json_decode($res->getBody()), request('realm'));
+
             // Redirect to import page.
             return redirect('characters/import');
         } catch (RequestException $e) {

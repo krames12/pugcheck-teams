@@ -121,9 +121,22 @@ class RosterController extends Controller
     */
     public function importGuild($rosterId)
     {
+        $roster = Roster::find($rosterId);
+        $realmName = $roster->realmName();
+        $requestUrl = "https://us.api.battle.net/wow/guild/$realmName/$roster->name?fields=members&locale=en_US&apikey=".env('BLIZZ_KEY');
+
         $client = new Client();
-        $guild = Roster::find($rosterId);
-        $apiUrl = "https://us.api.battle.net/wow/guild/Proudmoore/The%20Beard%20of%20Zeus?fields=members&locale=en_US&apikey=".env('BLIZZ_KEY');
+        try {
+            $res = $client->request('GET', $requestUrl);
+            $members = json_decode($res->getBody());
+            // Redirect to import page.
+            return view('rosters.import', compact('members'));
+        } catch (RequestException $e) {
+            if($e->hasResponse()) {
+                echo Psr7\str($e->getResponse());
+            }
+        }
+
         return view('rosters.import');
     }
 }
