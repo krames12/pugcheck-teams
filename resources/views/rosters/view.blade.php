@@ -2,8 +2,13 @@
 
 @section('content')
     <h1>View Roster</h1>
-    <p>Name: {{ $roster->name }}</p>
-    <p>Realm: {{ $roster->realm }}</p>
+    <p>
+        Name: {{ $roster->name }}
+        <span class="text-right">
+            <a href="{{ route('importGuild', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Guild</a>
+        </span>
+    </p>
+    <p>Realm: {{ $roster->realm->name }}</p>
 
     <div class="flex">
         <div class="flex-col w-1/2">
