@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class Helpers extends Controller
+class Lookups extends Controller
 {
     // Class lookup based on Blizzard class id
     public static function classLookup($classId) {
