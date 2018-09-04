@@ -128,7 +128,9 @@ class RosterController extends Controller
         $client = new Client();
         try {
             $res = $client->request('GET', $requestUrl);
-            $members = json_decode($res->getBody());
+            $response = json_decode($res->getBody());
+
+            $members = collect($response->members)->sortBy('rank');
             // Redirect to import page.
             return view('rosters.import', compact('members'));
         } catch (RequestException $e) {

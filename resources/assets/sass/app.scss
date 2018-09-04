@@ -5,7 +5,22 @@
 // Variables
 @import 'variables';
 
+a.btn { text-decoration: none; }
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.class-icon-small {
+    height: 20px;
+}
+
+.import-guild-members-list {
+    overflow-y: scroll;
+    max-height: 300px;
+}
+
+.character-item {
+
 }
