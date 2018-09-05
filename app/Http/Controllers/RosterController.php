@@ -119,7 +119,7 @@ class RosterController extends Controller
      * @param int $rosterId
      * @return \Illuminate\Http\Response
     */
-    public function importGuild($rosterId)
+    public function import($rosterId)
     {
         $roster = Roster::find($rosterId);
         $realmSlug = $roster->realm->slug;
@@ -132,7 +132,7 @@ class RosterController extends Controller
 
             $members = collect($response->members)->sortBy('rank');
             // Redirect to import page.
-            return view('rosters.import', compact('members'));
+            return view('rosters.import', compact('members', 'roster'));
         } catch (RequestException $e) {
             if($e->hasResponse()) {
                 echo Psr7\str($e->getResponse());
@@ -140,5 +140,10 @@ class RosterController extends Controller
         }
 
         return view('rosters.import');
+    }
+
+    public function importGuild(Request $request, $id)
+    {
+        dd($request);
     }
 }

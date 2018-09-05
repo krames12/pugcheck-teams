@@ -5,7 +5,7 @@
     <p>
         Name: {{ $roster->name }}
         <span class="text-right">
-            <a href="{{ route('importGuild', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Guild</a>
+            <a href="{{ route('importView', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Guild</a>
         </span>
     </p>
     <p>Realm: {{ $roster->realm->name }}</p>
