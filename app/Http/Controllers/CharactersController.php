@@ -6,6 +6,8 @@ use App\Character;
 use App\CharacterGear;
 use App\Realm;
 
+use App\Http\Controllers\Lookups;
+
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
@@ -66,26 +68,16 @@ class CharactersController extends Controller
         ]);
 
         $realm = Realm::find(request('realm'));
-        $requestUrl = "https://us.api.battle.net/wow/character/".$realm->slug."/".request('name')."?fields=items&locale=en_US&apikey=".env('BLIZZ_KEY');
+        $character = Lookups::apiCharacter(request('name'), $realm->slug);
+        $this::handleCharacterImport($character, request('realm'));
 
-        $client = new Client();
-        try {
-            $res = $client->request('GET', $requestUrl);
-            $this->handleCharacterImport(json_decode($res->getBody()), request('realm'));
-
-            // Redirect to import page.
-            return redirect('characters/import');
-        } catch (RequestException $e) {
-            if($e->hasResponse()) {
-                echo Psr7\str($e->getResponse());
-            }
-        }
+        return back()->with('success', 'Character has been imported');
     }
 
     /**
      * Creates character and character item records
     */
-    public function handleCharacterImport($character, $realmId) {
+    public static function handleCharacterImport($character, $realmId) {
         $characterExists = Character::where([['name', '=', $character->name], ['realm', '=', $realmId]])->first();
         if($characterExists === null) {
             // Create new character
@@ -121,6 +113,8 @@ class CharactersController extends Controller
 
                 $newItem->save();
             }
+
+            return $newCharacter->id;
         } else {
             $existingCharacter = Character::find($characterExists->id);
 
@@ -147,6 +141,8 @@ class CharactersController extends Controller
 
             $existingCharacter->item_level = $character->items->averageItemLevel;
             $existingCharacter->save();
+
+            return $existingCharacter->id;
         }
     }
 }

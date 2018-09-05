@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7;
+use GuzzleHttp\Exception\RequestException;
+
 class Lookups extends Controller
 {
     // Class lookup based on Blizzard class id
@@ -43,6 +47,21 @@ class Lookups extends Controller
             case 12:
                 return 'demon-hunter';
                 break;
+        }
+    }
+
+    public static function apiCharacter($characterName, $realmSlug)
+    {
+        $requestUrl = $requestUrl = "https://us.api.battle.net/wow/character/$realmSlug/$characterName?fields=items&locale=en_US&apikey=".env('BLIZZ_KEY');
+
+        $client = new Client();
+        try {
+            $res = $client->request('GET', $requestUrl);
+            return json_decode($res->getBody());
+        } catch (RequestException $e) {
+            if($e->hasResponse()) {
+                echo Psr7\str($e->getResponse());
+            }
         }
     }
 }

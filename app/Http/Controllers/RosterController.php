@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Roster;
 use App\Realm;
+use App\RosterCharacter;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+
+use App\Http\Controllers\CharactersController;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
@@ -142,8 +145,17 @@ class RosterController extends Controller
         return view('rosters.import');
     }
 
-    public function importGuild(Request $request, $id)
+    public function importGuild(Request $request, Roster $roster)
     {
-        dd($request);
+        foreach($request->characters as $character) {
+            $rosterCharacter = CharactersController::handleCharacterImport($character, $roster->realm->id);
+
+            $rosterCharacterObj = new RosterCharacter();
+            $rosterCharacterObj->roster_id = $roster->id;
+            $rosterCharacterObj->character_id = $rosterCharacter;
+            $rosterCharacterObj->main_spec = 'unassigned';
+            $rosterCharacterObj->off_spec = 'unassigned';
+            $rosterCharacterObj->save();
+        }
     }
 }

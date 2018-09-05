@@ -7,7 +7,7 @@
         <ul class="px-1 import-guild-members-list mb-4">
             @foreach($members as $member)
                 <li class="list-reset leading-normal border-b py-1 px-2">
-                    <input type="checkbox" value="{{ $member->character->name }}" name="character[]" />
+                    <input type="checkbox" value="{{ $member->character->name }}" name="characters[]" />
                     <img src="{{ asset('images').'/'.App\Http\Controllers\Lookups::classLookup($member->character->class).'.png' }}"
                          alt="{{ App\Http\Controllers\Lookups::classLookup($member->character->class) }}"
                          class="class-icon-small px-1"
