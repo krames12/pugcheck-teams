@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 use App\Http\Controllers\CharactersController;
+use App\Http\Controllers\Lookups;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
@@ -148,6 +149,8 @@ class RosterController extends Controller
     public function importGuild(Request $request, Roster $roster)
     {
         foreach($request->characters as $character) {
+            $character = Lookups::apiCharacter($character, $roster->realm->slug);
+
             $rosterCharacter = CharactersController::handleCharacterImport($character, $roster->realm->id);
 
             $rosterCharacterObj = new RosterCharacter();
@@ -157,5 +160,7 @@ class RosterController extends Controller
             $rosterCharacterObj->off_spec = 'unassigned';
             $rosterCharacterObj->save();
         }
+
+        return back();
     }
 }

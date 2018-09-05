@@ -84,7 +84,7 @@ class CharactersController extends Controller
             $newCharacter = new Character();
 
             $newCharacter->name = htmlspecialchars($character->name);
-            $newCharacter->realm = request('realm');
+            $newCharacter->realm = $realmId;
             $newCharacter->class = $character->class;
             $newCharacter->race = $character->race;
             $newCharacter->faction = $character->faction;
