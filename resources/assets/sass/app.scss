@@ -3,7 +3,9 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
+@import '_bootstrap';
 @import 'variables';
+@import '_nav.scss';
 
 a.btn { text-decoration: none; }
 
