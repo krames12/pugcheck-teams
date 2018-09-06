@@ -108,6 +108,17 @@ class RosterController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateRoles(Request $request)
+    {
+        dd($request);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

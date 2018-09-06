@@ -27,7 +27,7 @@ Route::post('/rosters/import/{roster}', 'RosterController@importGuild');
 Route::get('/rosters/{roster}', 'RosterController@show')->name('rosterShow');
 Route::delete('/rosters/{roster}', 'RosterController@destroy');
 Route::get('/rosters/{roster}/edit', 'RosterController@update');
-Route::patch('/rosters/{roster}/edit', 'RosterController@update');
+Route::patch('/rosters/{roster}/roles', 'RosterController@updateRoles');
 
 Auth::routes();
 

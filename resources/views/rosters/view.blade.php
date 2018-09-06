@@ -30,14 +30,16 @@
     </div>
 
     <div>
-        <form method="POST" action="">
+        <form method="POST" action="{{ $roster->id }}/roles">
             {{ csrf_field() }}
+            {{ method_field("PATCH") }}
             <ul class="px-1 import-guild-members-list mb-4">
                 @foreach($roster->characters as $character)
                     @php
                         $className = App\Http\Controllers\Lookups::classLookup($character->class);
                     @endphp
                     <li class=" list-reset leading-normal border-b py-1 px-2">
+                        <input type="hidden" name="character-id">
                         <img src="{{ asset('images').'/'.$className.'.png' }}"
                              alt="{{ $className}}"
                              class="class-icon-small px-1"
