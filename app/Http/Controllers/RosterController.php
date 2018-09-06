@@ -149,18 +149,22 @@ class RosterController extends Controller
     public function importGuild(Request $request, Roster $roster)
     {
         foreach($request->characters as $character) {
-            $character = Lookups::apiCharacter($character, $roster->realm->slug);
+            $existingCharacter = $roster->characters->where('name', $character);
+            if($existingCharacter == null) {
+                $character = Lookups::apiCharacter($character, $roster->realm->slug);
 
-            $rosterCharacter = CharactersController::handleCharacterImport($character, $roster->realm->id);
+                $rosterCharacter = CharactersController::handleCharacterImport($character, $roster->realm->id);
 
-            $rosterCharacterObj = new RosterCharacter();
-            $rosterCharacterObj->roster_id = $roster->id;
-            $rosterCharacterObj->character_id = $rosterCharacter;
-            $rosterCharacterObj->main_spec = 'unassigned';
-            $rosterCharacterObj->off_spec = 'unassigned';
-            $rosterCharacterObj->save();
+                $rosterCharacterObj = new RosterCharacter();
+                $rosterCharacterObj->roster_id = $roster->id;
+                $rosterCharacterObj->character_id = $rosterCharacter;
+                $rosterCharacterObj->main_spec = 'unassigned';
+                $rosterCharacterObj->off_spec = 'unassigned';
+                $rosterCharacterObj->save();
+            }
         }
 
-        return back();
+        return redirect()->route('rosterShow', ['id' => $roster->id])
+                         ->with('success', count($request->characters)." guild member have been imported");
     }
 }
