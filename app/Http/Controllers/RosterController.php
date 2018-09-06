@@ -14,6 +14,7 @@ use App\Http\Controllers\Lookups;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
+use Psy\Util\Json;
 
 class RosterController extends Controller
 {
@@ -132,7 +133,7 @@ class RosterController extends Controller
         $client = new Client();
         try {
             $res = $client->request('GET', $requestUrl);
-            $response = Request::JSON($res->getBody());
+            $response = json_decode($res->getBody());
 
             $members = collect($response->members)->sortBy('rank');
             // Redirect to import page.
@@ -146,22 +147,14 @@ class RosterController extends Controller
 
     public function importGuild(Request $request, Roster $roster)
     {
-        $nonExistingCharacters = $roster->character->whereNotIn('name', $request->characters);
-        dd($nonExistingCharacters);
+        $existingCharacters = $roster->characters->whereIn('name', $request->characters);
 
         foreach($request->characters as $character) {
-            $existingCharacter = $roster->characters->where('name', $character);
-            if($existingCharacter == null) {
+            if(!$existingCharacters->contains('name', $character)) {
                 $character = Lookups::apiCharacter($character, $roster->realm->slug);
 
                 $rosterCharacter = CharactersController::handleCharacterImport($character, $roster->realm->id);
-
-                $rosterCharacterObj = new RosterCharacter();
-                $rosterCharacterObj->roster_id = $roster->id;
-                $rosterCharacterObj->character_id = $rosterCharacter;
-                $rosterCharacterObj->main_spec = 'unassigned';
-                $rosterCharacterObj->off_spec = 'unassigned';
-                $rosterCharacterObj->save();
+                $roster->characters()->attach($rosterCharacter, ['main_spec' => 'unassigned', 'off_spec' => 'unassigned']);
             }
         }
 

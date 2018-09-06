@@ -59,7 +59,7 @@ class Lookups extends Controller
         $client = new Client();
         try {
             $res = $client->request('GET', $requestUrl);
-            return \Request::JSON($res->getBody());
+            return json_decode($res->getBody());
         } catch (RequestException $e) {
             if($e->hasResponse()) {
                 return Psr7\str($e->getResponse());
