@@ -10,8 +10,8 @@
 
 .class-icon-small {
   height: 20px;
+  border-radius: 3px;
   background: #444;
-  border-radius: 5px;
 }
 
 .import-guild-members-list {
