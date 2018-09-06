@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
@@ -57,7 +59,7 @@ class Lookups extends Controller
         $client = new Client();
         try {
             $res = $client->request('GET', $requestUrl);
-            return json_decode($res->getBody());
+            return \Request::JSON($res->getBody());
         } catch (RequestException $e) {
             if($e->hasResponse()) {
                 return Psr7\str($e->getResponse());

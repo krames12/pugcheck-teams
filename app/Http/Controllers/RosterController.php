@@ -132,7 +132,7 @@ class RosterController extends Controller
         $client = new Client();
         try {
             $res = $client->request('GET', $requestUrl);
-            $response = json_decode($res->getBody());
+            $response = Request::JSON($res->getBody());
 
             $members = collect($response->members)->sortBy('rank');
             // Redirect to import page.
@@ -142,12 +142,13 @@ class RosterController extends Controller
                 echo Psr7\str($e->getResponse());
             }
         }
-
-        return view('rosters.import');
     }
 
     public function importGuild(Request $request, Roster $roster)
     {
+        $nonExistingCharacters = $roster->character->whereNotIn('name', $request->characters);
+        dd($nonExistingCharacters);
+
         foreach($request->characters as $character) {
             $existingCharacter = $roster->characters->where('name', $character);
             if($existingCharacter == null) {
