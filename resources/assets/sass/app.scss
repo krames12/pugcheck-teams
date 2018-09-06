@@ -14,6 +14,10 @@ a.btn { text-decoration: none; }
 
 .class-icon-small {
     height: 20px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #444;
 }
 
 .import-guild-members-list {

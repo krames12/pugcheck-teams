@@ -60,7 +60,7 @@ class Lookups extends Controller
             return json_decode($res->getBody());
         } catch (RequestException $e) {
             if($e->hasResponse()) {
-                echo Psr7\str($e->getResponse());
+                return Psr7\str($e->getResponse());
             }
         }
     }
