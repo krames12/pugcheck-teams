@@ -30,7 +30,7 @@
     </div>
 
     <div>
-        <form method="POST" action="{{ $roster->id }}/roles">
+        <form method="POST" action="/rosters/{{ $roster->id }}/roles">
             {{ csrf_field() }}
             {{ method_field("PATCH") }}
             <ul class="px-1 import-guild-members-list mb-4">
@@ -39,20 +39,20 @@
                         $className = App\Http\Controllers\Lookups::classLookup($character->class);
                     @endphp
                     <li class=" list-reset leading-normal border-b py-1 px-2">
-                        <input type="hidden" name="character-id">
+                        <input type="hidden" name="{{ $character->id }}[id]" value="{{ $character->id }}">
                         <img src="{{ asset('images').'/'.$className.'.png' }}"
                              alt="{{ $className}}"
                              class="class-icon-small px-1"
                         >
                         <span>{{ $character->name }}</span>
-                        <select name="main_spec" id="main-spec-select" class="rounded px-1 py-1">
+                        <select name="{{ $character->id }}[main_spec]" id="main-spec-select" class="rounded px-1 py-1">
                             <option value="unassigned">None</option>
                             <option value="tank">Tank</option>
                             <option value="healer">Healer</option>
                             <option value="rdps">Ranged DPS</option>
                             <option value="mdps">Melee DPS</option>
                         </select>
-                        <select name="off_spec" id="off-spec-select" class="rounded px-1 py-1">
+                        <select name="{{ $character->id }}[off_spec]" id="off-spec-select" class="rounded px-1 py-1">
                             <option value="unassigned">None</option>
                             <option value="tank">Tank</option>
                             <option value="healer">Healer</option>

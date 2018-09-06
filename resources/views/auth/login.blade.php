@@ -14,7 +14,7 @@
                         <div class="mb-4">
                             <label for="email" class="block text-grey-darker">{{ __('E-Mail Address') }}</label>
 
-                            <div class="col-md-6">
+                            <div>
                                 <input id="email" type="email" class="w-full border rounded py-2 px-2{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
 
                                 @if ($errors->has('email'))
@@ -28,7 +28,7 @@
                         <div class="mb-4">
                             <label for="password" class="block text-grey-darker">{{ __('Password') }}</label>
 
-                            <div class="col-md-6">
+                            <div>
                                 <input id="password" type="password" class="w-full border rounded py-2 px-2{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
                                 @if ($errors->has('password'))
