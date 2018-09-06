@@ -30,20 +30,38 @@
     </div>
 
     <div>
-        <ul class="px-1 import-guild-members-list mb-4">
-            @foreach($roster->characters as $character)
-                @php
-                    $className = App\Http\Controllers\Lookups::classLookup($character->class);
-                @endphp
-                <li class=" list-reset leading-normal border-b py-1 px-2">
-                    <img src="{{ asset('images').'/'.$className.'.png' }}"
-                         alt="{{ $className}}"
-                         class="class-icon-small px-1"
-                    >
-                    <span>{{ $character->name }}</span>
-                </li>
-            @endforeach
-        </ul>
+        <form method="POST" action="">
+            {{ csrf_field() }}
+            <ul class="px-1 import-guild-members-list mb-4">
+                @foreach($roster->characters as $character)
+                    @php
+                        $className = App\Http\Controllers\Lookups::classLookup($character->class);
+                    @endphp
+                    <li class=" list-reset leading-normal border-b py-1 px-2">
+                        <img src="{{ asset('images').'/'.$className.'.png' }}"
+                             alt="{{ $className}}"
+                             class="class-icon-small px-1"
+                        >
+                        <span>{{ $character->name }}</span>
+                        <select name="main_spec" id="main-spec-select" class="rounded px-1 py-1">
+                            <option value="unassigned">None</option>
+                            <option value="tank">Tank</option>
+                            <option value="healer">Healer</option>
+                            <option value="rdps">Ranged DPS</option>
+                            <option value="mdps">Melee DPS</option>
+                        </select>
+                        <select name="off_spec" id="off-spec-select" class="rounded px-1 py-1">
+                            <option value="unassigned">None</option>
+                            <option value="tank">Tank</option>
+                            <option value="healer">Healer</option>
+                            <option value="rdps">Ranged DPS</option>
+                            <option value="mdps">Melee DPS</option>
+                        </select>
+                    </li>
+                @endforeach
+            </ul>
+            <button type="submit" class="btn bg-blue hover:bg-blue-darker text-white rounded px-2 py-2">Update Roles</button>
+        </form>
     </div>
 
     <script>
