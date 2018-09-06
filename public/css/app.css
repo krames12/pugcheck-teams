@@ -10,10 +10,16 @@
 
 .class-icon-small {
   height: 20px;
+  background: #444;
+  border-radius: 5px;
 }
 
 .import-guild-members-list {
   overflow-y: scroll;
   max-height: 300px;
+}
+
+.import-guild-members-list li {
+  vertical-align: middle;
 }
 

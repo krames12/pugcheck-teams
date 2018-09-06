@@ -14,11 +14,18 @@ a.btn { text-decoration: none; }
 
 .class-icon-small {
     height: 20px;
+    background: #444;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .import-guild-members-list {
     overflow-y: scroll;
     max-height: 300px;
+    li {
+      vertical-align: middle;
+    }
 }
 
 .character-item {

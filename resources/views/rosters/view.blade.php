@@ -28,4 +28,18 @@
             </div>
         </div>
     </div>
+
+    <div>
+        <ul class="px-1 import-guild-members-list mb-4">
+            @foreach($roster->characters as $character)
+                <li class="list-reset leading-normal border-b py-1 px-2">
+                    <img src="{{ asset('images').'/'.App\Http\Controllers\Lookups::classLookup($character->class).'.png' }}"
+                         alt="{{ App\Http\Controllers\Lookups::classLookup($character->class) }}"
+                         class="class-icon-small px-1"
+                    >
+                    <span>{{ $character->name }}</span>
+                </li>
+            @endforeach
+        </ul>
+    </div>
 @endsection
