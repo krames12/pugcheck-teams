@@ -32,9 +32,12 @@
     <div>
         <ul class="px-1 import-guild-members-list mb-4">
             @foreach($roster->characters as $character)
-                <li class="list-reset leading-normal border-b py-1 px-2">
-                    <img src="{{ asset('images').'/'.App\Http\Controllers\Lookups::classLookup($character->class).'.png' }}"
-                         alt="{{ App\Http\Controllers\Lookups::classLookup($character->class) }}"
+                @php
+                    $className = App\Http\Controllers\Lookups::classLookup($character->class);
+                @endphp
+                <li class=" list-reset leading-normal border-b py-1 px-2">
+                    <img src="{{ asset('images').'/'.$className.'.png' }}"
+                         alt="{{ $className}}"
                          class="class-icon-small px-1"
                     >
                     <span>{{ $character->name }}</span>
@@ -42,4 +45,9 @@
             @endforeach
         </ul>
     </div>
+
+    <script>
+
+    </script>
+
 @endsection
