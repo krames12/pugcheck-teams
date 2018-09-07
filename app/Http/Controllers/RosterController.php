@@ -113,9 +113,17 @@ class RosterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function updateRoles(Request $request)
+    public function updateRoles(Request $request, $rosterId)
     {
-        dd($request);
+        foreach($request->characters as $character) {
+            $roster = Roster::find($rosterId);
+            $roster->characters()->updateExistingPivot($character['id'], [
+                'main_spec' => $character['main_spec'],
+                'off_spec' => $character['off_spec']
+            ]);
+        }
+
+        return back();
     }
 
     /**
