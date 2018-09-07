@@ -10506,7 +10506,7 @@ a.btn {
   max-height: 300px;
 }
 
-.import-guild-members-list li {
+.import-guild-members-list td {
   vertical-align: middle;
 }
 
