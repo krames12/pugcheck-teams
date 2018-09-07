@@ -20,7 +20,7 @@ class Character extends Model
 
     public function rosters()
     {
-        return $this->belongsToMany(Roster::class, 'roster_characters');
+        return $this->belongsToMany(Roster::class, 'roster_characters')->withPivot('main_spec', 'off_spec');
     }
 
     public function realmName()
