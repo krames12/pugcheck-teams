@@ -19,4 +19,36 @@ class Roster extends Model
     {
         return $this->belongsTo(Realm::class);
     }
+
+    public function tanks()
+    {
+        return $this->belongsToMany(Character::class, 'roster_characters')
+            ->withPivot(['main_spec', 'off_spec'])
+            ->where('main_spec', '=', 'tank')
+            ->orWhere('off_spec', '=', 'tank');
+    }
+
+    public function healers()
+    {
+        return $this->belongsToMany(Character::class, 'roster_characters')
+            ->withPivot(['main_spec', 'off_spec'])
+            ->where('main_spec', '=', 'healer')
+            ->orWhere('off_spec', '=', 'healer');
+    }
+
+    public function meleeDps()
+    {
+        return $this->belongsToMany(Character::class, 'roster_characters')
+            ->withPivot(['main_spec', 'off_spec'])
+            ->where('main_spec', '=', 'mdps')
+            ->orWhere('off_spec', '=', 'mdps');
+    }
+
+    public function rankedDps()
+    {
+        return $this->belongsToMany(Character::class, 'roster_characters')
+            ->withPivot(['main_spec', 'off_spec'])
+            ->where('main_spec', '=', 'rdps')
+            ->orWhere('off_spec', '=', 'rdps');
+    }
 }
