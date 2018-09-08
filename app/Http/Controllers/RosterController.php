@@ -110,6 +110,7 @@ class RosterController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @param $rosterId
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -117,13 +118,17 @@ class RosterController extends Controller
     {
         foreach($request->characters as $character) {
             $roster = Roster::find($rosterId);
-            $roster->characters()->updateExistingPivot($character['id'], [
-                'main_spec' => $character['main_spec'],
-                'off_spec' => $character['off_spec']
-            ]);
+            if(isset($character['remove'])) {
+                $roster->characters()->detach($character['id']);
+            } else {
+                $roster->characters()->updateExistingPivot($character['id'], [
+                    'main_spec' => $character['main_spec'],
+                    'off_spec' => $character['off_spec']
+                ]);
+            }
         }
 
-        return back();
+        return redirect("/rosters/$rosterId");
     }
 
     /**
