@@ -33,7 +33,8 @@ class Roster extends Model
         return $this->belongsToMany(Character::class, 'roster_characters')
             ->withPivot(['main_spec', 'off_spec'])
             ->where('main_spec', '=', 'healer')
-            ->orWhere('off_spec', '=', 'healer');
+            ->orWhere('off_spec', '=', 'healer')
+            ->orderBy('main_spec');
     }
 
     public function meleeDps()
@@ -44,7 +45,7 @@ class Roster extends Model
             ->orWhere('off_spec', '=', 'mdps');
     }
 
-    public function rankedDps()
+    public function rangedDps()
     {
         return $this->belongsToMany(Character::class, 'roster_characters')
             ->withPivot(['main_spec', 'off_spec'])

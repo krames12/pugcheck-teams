@@ -81,7 +81,40 @@ class RosterController extends Controller
      */
     public function show(Roster $roster)
     {
-        return view('rosters.view', compact('roster'));
+        $roleArray = [];
+        foreach($roster->tanks as $tank) {
+            if($tank->pivot->main_spec == "tank") {
+                $roleArray['tanks']['main'][] = $tank;
+            } else if ($tank->pivot->off_spec == "tank") {
+                $roleArray['tanks']['off'][] = $tank;
+            }
+        }
+
+        foreach($roster->healers as $healer) {
+            if($healer->pivot->main_spec == "healer") {
+                $roleArray['healers']['main'][] = $healer;
+            } else if ($healer->pivot->off_spec == "healer") {
+                $roleArray['healers']['off'][] = $healer;
+            }
+        }
+
+        foreach($roster->meleeDps as $melee) {
+            if($melee->pivot->main_spec == "mdps") {
+                $roleArray['meleeDps']['main'][] = $melee;
+            } else if ($melee->pivot->off_spec == "mdps") {
+                $roleArray['meleeDps']['off'][] = $melee;
+            }
+        }
+
+        foreach($roster->rangedDps as $ranged) {
+            if($ranged->pivot->main_spec == "rdps") {
+                $roleArray['rangedDps']['main'][] = $ranged;
+            } else if ($ranged->pivot->off_spec == "rdps") {
+                $roleArray['rangedDps']['off'][] = $ranged;
+            }
+        }
+
+        return view('rosters.view', compact(['roster', 'roleArray']));
     }
 
     /**

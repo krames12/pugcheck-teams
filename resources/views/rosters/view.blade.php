@@ -14,17 +14,169 @@
         <div class="flex-col w-1/2">
             <div class="w-3/5 mx-auto my-3">
                 <h3>Tanks</h3>
+                <div class="main-spec-box">
+                    <h3 class="px-2">Main Spec</h3>
+                    @if(isset($roleArray['tanks']['main']))
+                        @foreach($roleArray['tanks']['main'] as $tank)
+                            @php
+                                $className = App\Http\Controllers\Lookups::classLookup($tank->class);
+                            @endphp
+                            <p class="px-4">
+                                <img src="{{ asset('images').'/'.$className.'.png' }}"
+                                     alt="{{ $className }}"
+                                     class="class-icon-small px-1"
+                                >
+                                <span>{{ $tank->name }}</span>
+                            </p>
+                        @endforeach
+                    @else
+                        <p class="px-4">No Tanks</p>
+                    @endif
+                </div>
+                <div class="off-spec-box">
+                    <h3 class="px-2">Off Spec</h3>
+                    @if(isset($roleArray['tanks']['off']))
+                        @foreach($roleArray['tanks']['off'] as $tank)
+                            @php
+                                $className = App\Http\Controllers\Lookups::classLookup($tank->class);
+                            @endphp
+                            <p class="px-4">
+                                <img src="{{ asset('images').'/'.$className.'.png' }}"
+                                     alt="{{ $className }}"
+                                     class="class-icon-small px-1"
+                                >
+                                <span>{{ $tank->name }}</span>
+                            </p>
+                        @endforeach
+                    @else
+                        <p class="px-4">No Tanks</p>
+                    @endif
+                </div>
             </div>
             <div class="w-3/5 mx-auto my-3">
                 <h3>Healers</h3>
+                <div class="main-spec-box">
+                    <h3 class="px-2">Main Spec</h3>
+                    @if(isset($roleArray['healers']['main']))
+                        @foreach($roleArray['healers']['main'] as $healer)
+                            @php
+                                $className = App\Http\Controllers\Lookups::classLookup($healer->class);
+                            @endphp
+                            <p class="pl-4 py-1">
+                                <img src="{{ asset('images').'/'.$className.'.png' }}"
+                                     alt="{{ $className }}"
+                                     class="class-icon-small px-1"
+                                >
+                                <span>{{ $healer->name }}</span>
+                            </p>
+                        @endforeach
+                    @else
+                        <p class="px-4">No Healers</p>
+                    @endif
+                </div>
+                <div class="off-spec-box">
+                    <h3 class="px-2">Off Spec</h3>
+                    @if(isset($roleArray['healers']['off']))
+                        @foreach($roleArray['healers']['off'] as $healer)
+                            @php
+                                $className = App\Http\Controllers\Lookups::classLookup($healer->class);
+                            @endphp
+                            <p class="pl-4 py-1">
+                                <img src="{{ asset('images').'/'.$className.'.png' }}"
+                                     alt="{{ $className }}"
+                                     class="class-icon-small px-1"
+                                >
+                                <span>{{ $healer->name }}</span>
+                            </p>
+                        @endforeach
+                    @else
+                        <p class="px-4">No Healers</p>
+                    @endif
+                </div>
             </div>
         </div>
         <div class="flex-col w-1/2">
             <div class="w-3/5 mx-auto my-3">
                 <h3>Melee DPS</h3>
+                <div class="main-spec-box">
+                    <h3 class="px-2">Main Spec</h3>
+                    @if(isset($roleArray['meleeDps']['main']))
+                        @foreach($roleArray['meleeDps']['main'] as $melee)
+                            @php
+                                $className = App\Http\Controllers\Lookups::classLookup($melee->class);
+                            @endphp
+                            <p class="pl-4 py-1">
+                                <img src="{{ asset('images').'/'.$className.'.png' }}"
+                                     alt="{{ $className }}"
+                                     class="class-icon-small px-1"
+                                >
+                                <span>{{ $melee->name }}</span>
+                            </p>
+                        @endforeach
+                    @else
+                        <p class="px-4">No Melee</p>
+                    @endif
+                </div>
+                <div class="off-spec-box">
+                    <h3 class="px-2">Off Spec</h3>
+                    @if(isset($roleArray['meleeDps']['off']))
+                        @foreach($roleArray['meleeDps']['off'] as $healer)
+                            @php
+                                $className = App\Http\Controllers\Lookups::classLookup($melee->class);
+                            @endphp
+                            <p class="pl-4 py-1">
+                                <img src="{{ asset('images').'/'.$className.'.png' }}"
+                                     alt="{{ $className }}"
+                                     class="class-icon-small px-1"
+                                >
+                                <span>{{ $melee->name }}</span>
+                            </p>
+                        @endforeach
+                    @else
+                        <p class="px-4">No Melee</p>
+                    @endif
+                </div>
             </div>
             <div class="w-3/5 mx-auto my-3">
                 <h3>Ranged DPS</h3>
+                <div class="main-spec-box">
+                    <h3 class="px-2">Main Spec</h3>
+                    @if(isset($roleArray['rangedDps']['main']))
+                        @foreach($roleArray['rangedDps']['main'] as $ranged)
+                            @php
+                                $className = App\Http\Controllers\Lookups::classLookup($ranged->class);
+                            @endphp
+                            <p class="pl-4 py-1">
+                                <img src="{{ asset('images').'/'.$className.'.png' }}"
+                                     alt="{{ $className }}"
+                                     class="class-icon-small px-1"
+                                >
+                                <span>{{ $ranged->name }}</span>
+                            </p>
+                        @endforeach
+                    @else
+                        <p class="px-4">No Ranged</p>
+                    @endif
+                </div>
+                <div class="off-spec-box">
+                    <h3 class="px-2">Off Spec</h3>
+                    @if(isset($roleArray['rangedDps']['off']))
+                        @foreach($roleArray['rangedDps']['off'] as $ranged)
+                            @php
+                                $className = App\Http\Controllers\Lookups::classLookup($ranged->class);
+                            @endphp
+                            <p class="pl-4 py-1">
+                                <img src="{{ asset('images').'/'.$className.'.png' }}"
+                                     alt="{{ $className }}"
+                                     class="class-icon-small px-1"
+                                >
+                                <span>{{ $ranged->name }}</span>
+                            </p>
+                        @endforeach
+                    @else
+                        <p class="px-4">No Ranged</p>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
