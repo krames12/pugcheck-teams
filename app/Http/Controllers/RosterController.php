@@ -56,14 +56,16 @@ class RosterController extends Controller
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'name'    => 'required',
-            'realm'   => 'required',
-            'faction' => 'required'
+            'name'          => 'required',
+            'guild_name'    => 'required',
+            'realm'         => 'required',
+            'faction'       => 'required'
         ]);
 
         $newRoster = new Roster();
 
         $newRoster->name = $request->name;
+        $newRoster->guild_name = $request->guild_name;
         $newRoster->realm_id = $request->realm;
         $newRoster->faction = $request->faction;
         $newRoster->owner_id = auth()->id();
