@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Character;
 use App\CharacterGear;
 use App\Realm;
+use App\Roster;
 
 use App\Http\Controllers\Lookups;
 
@@ -51,16 +52,16 @@ class CharactersController extends Controller
      * Import single character page
      * @return \Illuminate\Http\Response
      */
-    public function import() {
+    public function import(Roster $roster) {
         $realms = \App\Realm::all();
 
-        return view('characters.import', compact('realms'));
+        return view('characters.import', compact(['realms', 'roster']));
     }
 
     /**
      * Import character from Blizzard API
      */
-    public function importCharacter()
+    public function importCharacter(Roster $roster)
     {
         $this->validate(request(), [
             'name'  => 'required',
@@ -69,9 +70,10 @@ class CharactersController extends Controller
 
         $realm = Realm::find(request('realm'));
         $character = Lookups::apiCharacter(request('name'), $realm->slug);
-        $this::handleCharacterImport($character, request('realm'));
+        $importedCharacter = $this::handleCharacterImport($character, request('realm'));
+        $roster->characters()->attach($importedCharacter, ['main_spec' => 'unassigned', 'off_spec' => 'unassigned']);
 
-        return back()->with('success', 'Character has been imported');
+        return redirect("/rosters/$roster->id")->with('success', 'Character has been imported');
     }
 
     /**
