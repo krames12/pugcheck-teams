@@ -15,7 +15,7 @@ class Rosters extends Migration
     {
         Schema::create('rosters', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('owner_id');
+            $table->integer('user_id');
             $table->string('name');
             $table->string('guild_name');
             $table->integer('realm_id');

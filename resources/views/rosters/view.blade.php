@@ -4,14 +4,16 @@
     <h1>View Roster</h1>
     <p>
         Name: {{ $roster->name }}
-        <span class="float-right">
-            <a href="{{ route('importCharacter', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Character</a>
-            <a href="{{ route('importGuild', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Guild</a>
-        </span>
+        @if( Auth::user()->can('update-roster', $roster))
+            <span class="float-right">
+                <a href="{{ route('importCharacter', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Character</a>
+                <a href="{{ route('importGuild', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Guild</a>
+            </span>
+        @endif
     </p>
     <p>Realm: {{ $roster->realm->name }}</p>
 
-    <div class="container">
+    <div class="container mt-4">
         <div class="row">
             <div class="col-sm-hidden col-md-3"></div>
             <div class="col-md-4 col-sm-12 mb-3">
@@ -183,10 +185,10 @@
             </div>
         </div>
     </div>
-
+    <hr>
     <div class="container">
-        <div class="">
-            <form method="POST" action="/rosters/{{ $roster->id }}/roles row">
+        @if(count($roster->characters))
+            <form method="POST" action="/rosters/{{ $roster->id }}/roles">
                 {{ csrf_field() }}
                 {{ method_field("PATCH") }}
 
@@ -198,7 +200,9 @@
                             <th>Character</th>
                             <th>Main Spec</th>
                             <th>Off Spec</th>
-                            <th>Remove</th>
+                            @if( Auth::user()->can('update-roster', $roster))
+                                <th>Remove</th>
+                            @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -218,7 +222,9 @@
                                 <td class="leading-normal border-b py-1 px-2">
                                     <select name="characters[{{ $character->id }}][main_spec]"
                                             id="main-spec-select"
-                                            class="bg-white border rounded px-1 py-1">
+                                            class="bg-white border rounded px-1 py-1"
+                                            {{ Auth::user()->can('update-roster', $roster) ? "" : 'disabled="disabled"' }}
+                                    >
                                         <option value="unassigned" {{ $character->pivot->main_spec == "unassigned" ? "selected" : "" }}>None</option>
                                         <option value="tank" {{ $character->pivot->main_spec == "tank" ? 'selected="selected"' : "" }}>Tank</option>
                                         <option value="healer" {{ $character->pivot->main_spec == "healer" ? 'selected="selected"' : "" }}>Healer</option>
@@ -229,7 +235,9 @@
                                 <td class="leading-normal border-b py-1 px-2">
                                     <select name="characters[{{ $character->id }}][off_spec]"
                                             id="off-spec-select"
-                                            class="bg-white border rounded px-1 py-1">
+                                            class="bg-white border rounded px-1 py-1"
+                                            {{ Auth::user()->can('update-roster', $roster) ? "" : 'disabled="disabled"' }}
+                                    >
                                         <option value="unassigned" {{ $character->pivot->off_spec == "unassigned" ? "selected" : "" }}>None</option>
                                         <option value="tank" {{ $character->pivot->off_spec == "tank" ? "selected" : "" }}>Tank</option>
                                         <option value="healer" {{ $character->pivot->off_spec == "healer" ? "selected" : "" }}>Healer</option>
@@ -237,17 +245,25 @@
                                         <option value="mdps" {{ $character->pivot->off_spec == "mdps" ? "selected" : "" }}>Melee DPS</option>
                                     </select>
                                 </td>
-                                <td class="border-b py-1 px-2">
-                                    <input type="checkbox" name="characters[{{ $character->id }}][remove]" value="remove" />
-                                </td>
+                                @if( Auth::user()->can('update-roster', $roster))
+                                    <td class="border-b py-1 px-2">
+                                        <input type="checkbox" name="characters[{{ $character->id }}][remove]" value="remove" />
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
-                <button type="submit" name="updateRoles" class="block mx-auto btn bg-blue hover:bg-blue-darker text-white rounded px-2 py-2">Update Roles</button>
+                @if(Auth::user()->can('update-roster', $roster))
+                    <button type="submit" name="updateRoles" class="block mx-auto btn bg-blue hover:bg-blue-darker text-white rounded px-2 py-2">Update Roles</button>
+                @endif
             </form>
-        </div>
+        @else
+            <div class="text-center">
+                <h4>There are no characters assigned to this roster.</h4>
+            </div>
+        @endif
     </div>
 
     <script>

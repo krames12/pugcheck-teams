@@ -68,7 +68,7 @@ class RosterController extends Controller
         $newRoster->guild_name = $request->guild_name;
         $newRoster->realm_id = $request->realm;
         $newRoster->faction = $request->faction;
-        $newRoster->owner_id = auth()->id();
+        $newRoster->user_id = auth()->id();
 
         $newRoster->save();
 
