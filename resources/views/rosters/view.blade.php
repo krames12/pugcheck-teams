@@ -4,12 +4,12 @@
     <h1>View Roster</h1>
     <p>
         Name: {{ $roster->name }}
-        @if(Auth::check() && Auth::user()->can('update-roster', $roster))
+        @can('update-roster', $roster)
             <span class="float-right">
                 <a href="{{ route('importCharacter', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Character</a>
                 <a href="{{ route('importGuild', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Guild</a>
             </span>
-        @endif
+        @endcan
     </p>
     <p>Guild: {{ $roster->guild_name }}</p>
     <p>Realm: {{ $roster->realm->name }}</p>
@@ -189,13 +189,13 @@
     <hr>
     <div class="container">
         @if(count($roster->characters))
-            @if(Auth::check() && Auth::user()->can('update-roster', $roster))
+            @can('update-roster', $roster)
             <form method="POST" action="/rosters/{{ $roster->id }}/roles">
                 {{ csrf_field() }}
                 {{ method_field("PATCH") }}
 
                 <input type="hidden" name="rosterId" value="{{ $roster->ids }}">
-            @endif
+            @endcan
                 <div class="import-guild-members-list mb-4">
                     <table class="roster-members-table mx-auto">
                         <thead>
@@ -203,9 +203,9 @@
                             <th>Character</th>
                             <th>Main Spec</th>
                             <th>Off Spec</th>
-                            @if(Auth::check() &&  Auth::user()->can('update-roster', $roster))
+                            @can('update-roster', $roster)
                                 <th>Remove</th>
-                            @endif
+                            @endcan
                         </tr>
                         </thead>
                         <tbody>

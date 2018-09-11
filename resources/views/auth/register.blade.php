@@ -42,7 +42,7 @@
                             <label for="password" class="block text-grey-darker">{{ __('Password') }}</label>
 
                             <div class="col-md-12">
-                                <input id="password" type="password" class="w-full border rounded py-2 px-2l{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                                <input id="password" type="password" class="w-full border rounded py-2 px-2{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="mb-0">
-                            <div class="col-md-12 offset-md-4">
+                            <div class="col-md-12">
                                 <button type="submit" class="btn bg-blue hover:bg-blue-dark rounded text-white rounded px-2 py-2">
                                     {{ __('Register') }}
                                 </button>

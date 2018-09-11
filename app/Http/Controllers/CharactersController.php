@@ -70,10 +70,14 @@ class CharactersController extends Controller
 
         $realm = Realm::find(request('realm'));
         $character = Lookups::apiCharacter(request('name'), $realm->slug);
-        $importedCharacter = $this::handleCharacterImport($character, request('realm'));
-        $roster->characters()->attach($importedCharacter, ['main_spec' => 'unassigned', 'off_spec' => 'unassigned']);
+        if(isset($character->name)) {
+            $importedCharacter = $this::handleCharacterImport($character, request('realm'));
+            $roster->characters()->attach($importedCharacter, ['main_spec' => 'unassigned', 'off_spec' => 'unassigned']);
 
-        return redirect("/rosters/$roster->id")->with('success', 'Character has been imported');
+            return redirect("/rosters/$roster->id")->with('success', 'Character has been imported');
+        } else {
+            return back()->with('error', 'Character does not exist');
+        }
     }
 
     /**

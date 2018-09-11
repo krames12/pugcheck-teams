@@ -7,11 +7,11 @@
             <div class="w-full mx-auto max-w-sm">
                 <h1 class="mb-3">{{ __('Login') }}</h1>
 
-                <div class="bg-white shadow-md rounded p-8">
+                <div class="bg-white shadow-md rounded p-8 pb-2">
                     <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
                         @csrf
 
-                        <div class="mb-4">
+                        <div class="mb-3">
                             <label for="email" class="block text-grey-darker">{{ __('E-Mail Address') }}</label>
 
                             <div>
@@ -25,7 +25,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-4">
+                        <div class="mb-3">
                             <label for="password" class="block text-grey-darker">{{ __('Password') }}</label>
 
                             <div>
@@ -39,8 +39,8 @@
                             </div>
                         </div>
 
-                        <div class="mb-4">
-                            <div class="col-md-6 offset-md-4">
+                        <div class="mb-2">
+                            <div class="col-md-6">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
