@@ -4,13 +4,14 @@
     <h1>View Roster</h1>
     <p>
         Name: {{ $roster->name }}
-        @if( Auth::user()->can('update-roster', $roster))
+        @if(Auth::check() && Auth::user()->can('update-roster', $roster))
             <span class="float-right">
                 <a href="{{ route('importCharacter', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Character</a>
                 <a href="{{ route('importGuild', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Guild</a>
             </span>
         @endif
     </p>
+    <p>Guild: {{ $roster->guild_name }}</p>
     <p>Realm: {{ $roster->realm->name }}</p>
 
     <div class="container mt-4">
@@ -188,11 +189,13 @@
     <hr>
     <div class="container">
         @if(count($roster->characters))
+            @if(Auth::check() && Auth::user()->can('update-roster', $roster))
             <form method="POST" action="/rosters/{{ $roster->id }}/roles">
                 {{ csrf_field() }}
                 {{ method_field("PATCH") }}
 
                 <input type="hidden" name="rosterId" value="{{ $roster->ids }}">
+            @endif
                 <div class="import-guild-members-list mb-4">
                     <table class="roster-members-table mx-auto">
                         <thead>
@@ -200,7 +203,7 @@
                             <th>Character</th>
                             <th>Main Spec</th>
                             <th>Off Spec</th>
-                            @if( Auth::user()->can('update-roster', $roster))
+                            @if(Auth::check() &&  Auth::user()->can('update-roster', $roster))
                                 <th>Remove</th>
                             @endif
                         </tr>
@@ -223,7 +226,7 @@
                                     <select name="characters[{{ $character->id }}][main_spec]"
                                             id="main-spec-select"
                                             class="bg-white border rounded px-1 py-1"
-                                            {{ Auth::user()->can('update-roster', $roster) ? "" : 'disabled="disabled"' }}
+                                            {{ Auth::check() && Auth::user()->can('update-roster', $roster) ? "" : 'disabled="disabled"' }}
                                     >
                                         <option value="unassigned" {{ $character->pivot->main_spec == "unassigned" ? "selected" : "" }}>None</option>
                                         <option value="tank" {{ $character->pivot->main_spec == "tank" ? 'selected="selected"' : "" }}>Tank</option>
@@ -236,7 +239,7 @@
                                     <select name="characters[{{ $character->id }}][off_spec]"
                                             id="off-spec-select"
                                             class="bg-white border rounded px-1 py-1"
-                                            {{ Auth::user()->can('update-roster', $roster) ? "" : 'disabled="disabled"' }}
+                                            {{ Auth::check() && Auth::user()->can('update-roster', $roster) ? "" : 'disabled="disabled"' }}
                                     >
                                         <option value="unassigned" {{ $character->pivot->off_spec == "unassigned" ? "selected" : "" }}>None</option>
                                         <option value="tank" {{ $character->pivot->off_spec == "tank" ? "selected" : "" }}>Tank</option>
@@ -245,7 +248,7 @@
                                         <option value="mdps" {{ $character->pivot->off_spec == "mdps" ? "selected" : "" }}>Melee DPS</option>
                                     </select>
                                 </td>
-                                @if( Auth::user()->can('update-roster', $roster))
+                                @if( Auth::check() && Auth::user()->can('update-roster', $roster))
                                     <td class="border-b py-1 px-2">
                                         <input type="checkbox" name="characters[{{ $character->id }}][remove]" value="remove" />
                                     </td>
@@ -255,10 +258,10 @@
                         </tbody>
                     </table>
                 </div>
-                @if(Auth::user()->can('update-roster', $roster))
+            @if(Auth::check() && Auth::user()->can('update-roster', $roster))
                     <button type="submit" name="updateRoles" class="block mx-auto btn bg-blue hover:bg-blue-darker text-white rounded px-2 py-2">Update Roles</button>
-                @endif
             </form>
+            @endif
         @else
             <div class="text-center">
                 <h4>There are no characters assigned to this roster.</h4>

@@ -29,7 +29,7 @@ class RosterPolicy
      * * @param \App\Roster $roster
      * @return bool
      */
-    public function update(User $user, Roster $roster)
+    public function update(?User $user, Roster $roster)
     {
         return $user->id === $roster->user_id;
     }

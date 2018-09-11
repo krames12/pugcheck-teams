@@ -149,10 +149,9 @@ class RosterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function updateRoles(Request $request, $rosterId)
+    public function updateRoles(Request $request, Roster $roster)
     {
         foreach($request->characters as $character) {
-            $roster = Roster::find($rosterId);
             if(isset($character['remove'])) {
                 $roster->characters()->detach($character['id']);
             } else {
@@ -162,8 +161,7 @@ class RosterController extends Controller
                 ]);
             }
         }
-
-        return redirect("/rosters/$rosterId");
+        return redirect("/rosters/$roster->id")->with('success', "Roles have been updated.");
     }
 
     /**
@@ -183,9 +181,8 @@ class RosterController extends Controller
      * @param int $rosterId
      * @return \Illuminate\Http\Response
     */
-    public function import($rosterId)
+    public function import(Roster $roster)
     {
-        $roster = Roster::find($rosterId);
         $realmSlug = $roster->realm->slug;
         $requestUrl = "https://us.api.battle.net/wow/guild/$realmSlug/$roster->name?fields=members&locale=en_US&apikey=".env('BLIZZ_KEY');
 
