@@ -74,6 +74,7 @@
         </nav>
 
         <main class="container py-4 mx-auto">
+            @include('partials.messages')
             @yield('content')
         </main>
     </div>
