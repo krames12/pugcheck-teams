@@ -5,6 +5,7 @@
     <p>
         Name: {{ $roster->name }}
         @can('update-roster', $roster)
+            <a href="{{ route('editRoster', $roster->id) }}" class="px-2 py-1 border rounded">Edit</a>
             <span class="float-right">
                 <a href="{{ route('importCharacter', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Character</a>
                 <a href="{{ route('importGuild', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Guild</a>

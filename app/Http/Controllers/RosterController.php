@@ -125,9 +125,10 @@ class RosterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Roster $roster)
     {
-        //
+        $realms = Realm::all();
+        return view('rosters.edit', compact(['roster', 'realms']));
     }
 
     /**
