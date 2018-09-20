@@ -17,9 +17,12 @@
                     <li>Interface improvements</li>
                     <li>Character management (i.e. My Characters)</li>
                 </ul>
-                <p class="mt-2 p-2 rounded border">
-                    If have any feedback, such as suggestions or thing being broken, don't hesitate to reach out! Please contact me on Discord (Krames#4203), Battle Net (Krames#1425), or on Twitter (@krames12).
-                </p>
+                <div class="shadow border rounded bg-white mt-2 p-2">
+                    <h4 class="inline-block">Feedback</h4>
+                    <p>
+                        If have any feedback, such as suggestions or thing being broken, don't hesitate to reach out! Please contact me on Discord (Krames#4203), Battle Net (Krames#1425), or on Twitter (@krames12).
+                    </p>
+                </div>
             </div>
         </div>
     </div>
