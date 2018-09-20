@@ -206,7 +206,7 @@ class RosterController extends Controller
                             ->filter(function($value, $key) {
                                 return $value->character->level == 120;
                             });
-            
+
             // Redirect to import page.
             return view('rosters.import', compact('members', 'roster'));
         } catch (RequestException $e) {

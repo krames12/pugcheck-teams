@@ -21,7 +21,7 @@
             <div class="col-md-4 col-sm-12 mb-3">
                 <h3>Tanks</h3>
                 <div class="main-spec-box">
-                    <h3 class="px-2">Main Spec</h3>
+                    <p class="px-2">Main Spec</p>
                     @if(isset($roleArray['tanks']['main']))
                         @foreach($roleArray['tanks']['main'] as $tank)
                             @php
@@ -40,7 +40,7 @@
                     @endif
                 </div>
                 <div class="off-spec-box">
-                    <h3 class="px-2">Off Spec</h3>
+                    <p class="px-2">Off Spec</p>
                     @if(isset($roleArray['tanks']['off']))
                         @foreach($roleArray['tanks']['off'] as $tank)
                             @php
@@ -62,7 +62,7 @@
             <div class="col-md-4 col-sm-12 mb-3">
                 <h3>Healers</h3>
                 <div class="main-spec-box">
-                    <h3 class="px-2">Main Spec</h3>
+                    <p class="px-2">Main Spec</p>
                     @if(isset($roleArray['healers']['main']))
                         @foreach($roleArray['healers']['main'] as $healer)
                             @php
@@ -81,7 +81,7 @@
                     @endif
                 </div>
                 <div class="off-spec-box">
-                    <h3 class="px-2">Off Spec</h3>
+                    <p class="px-2">Off Spec</p>
                     @if(isset($roleArray['healers']['off']))
                         @foreach($roleArray['healers']['off'] as $healer)
                             @php
@@ -106,7 +106,7 @@
             <div class="col-md-4 col-sm-12 mb-3">
                 <h3>Melee DPS</h3>
                 <div class="main-spec-box">
-                    <h3 class="px-2">Main Spec</h3>
+                    <p class="px-2">Main Spec</p>
                     @if(isset($roleArray['meleeDps']['main']))
                         @foreach($roleArray['meleeDps']['main'] as $melee)
                             @php
@@ -125,7 +125,7 @@
                     @endif
                 </div>
                 <div class="off-spec-box">
-                    <h3 class="px-2">Off Spec</h3>
+                    <p class="px-2">Off Spec</p>
                     @if(isset($roleArray['meleeDps']['off']))
                         @foreach($roleArray['meleeDps']['off'] as $healer)
                             @php
@@ -147,7 +147,7 @@
             <div class="col-md-4 col-sm-12 mb-3">
                 <h3>Ranged DPS</h3>
                 <div class="main-spec-box">
-                    <h3 class="px-2">Main Spec</h3>
+                    <p class="px-2">Main Spec</p>
                     @if(isset($roleArray['rangedDps']['main']))
                         @foreach($roleArray['rangedDps']['main'] as $ranged)
                             @php
@@ -166,7 +166,7 @@
                     @endif
                 </div>
                 <div class="off-spec-box">
-                    <h3 class="px-2">Off Spec</h3>
+                    <p class="px-2">Off Spec</p>
                     @if(isset($roleArray['rangedDps']['off']))
                         @foreach($roleArray['rangedDps']['off'] as $ranged)
                             @php
