@@ -140,7 +140,16 @@ class RosterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $roster = Roster::find($id);
+
+        $roster->name = $request->name;
+        $roster->guild_name = $request->guild_name;
+        $roster->realm_id = $request->realm;
+        $roster->faction = $request->faction;
+
+        $roster->save();
+
+        return redirect("/rosters/$id")->with('success', 'Roster has been updated');
     }
 
     /**
@@ -192,7 +201,12 @@ class RosterController extends Controller
             $res = $client->request('GET', $requestUrl);
             $response = json_decode($res->getBody());
 
-            $members = collect($response->members)->sortBy('rank');
+            $members = collect($response->members)
+                            ->sortBy('rank')
+                            ->filter(function($value, $key) {
+                                return $value->character->level == 120;
+                            });
+            
             // Redirect to import page.
             return view('rosters.import', compact('members', 'roster'));
         } catch (RequestException $e) {
