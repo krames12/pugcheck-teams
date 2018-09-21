@@ -2,7 +2,7 @@
 
 @section('content')
     <h1 class="mb-3">Import Guild</h1>
-    @if(isset($members))
+    @if(count($members))
     <form method="POST" {{ action("RosterController@importGuild", ['id' => $roster->id]) }} class="">
         {{ csrf_field() }}
         <ul class="px-1 import-guild-members-list mb-4">
