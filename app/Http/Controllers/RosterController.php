@@ -193,6 +193,7 @@ class RosterController extends Controller
     */
     public function import(Roster $roster)
     {
+        dd($roster);
         $realmSlug = $roster->realm->slug;
         $requestUrl = "https://us.api.battle.net/wow/guild/$realmSlug/$roster->name?fields=members&locale=en_US&apikey=".env('BLIZZ_KEY');
 
@@ -218,7 +219,6 @@ class RosterController extends Controller
 
     public function importGuild(Request $request, Roster $roster)
     {
-        dd($request);
         $existingCharacters = $roster->characters->whereIn('name', $request->characters);
 
         foreach($request->characters as $character) {
