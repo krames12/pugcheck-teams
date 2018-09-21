@@ -193,9 +193,8 @@ class RosterController extends Controller
     */
     public function import(Roster $roster)
     {
-        dd($roster);
         $realmSlug = $roster->realm->slug;
-        $requestUrl = "https://us.api.battle.net/wow/guild/$realmSlug/$roster->name?fields=members&locale=en_US&apikey=".env('BLIZZ_KEY');
+        $requestUrl = "https://us.api.battle.net/wow/guild/$realmSlug/$roster->guild_name?fields=members&locale=en_US&apikey=".env('BLIZZ_KEY');
 
         $client = new Client();
         try {
