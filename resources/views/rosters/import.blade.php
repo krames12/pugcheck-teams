@@ -2,6 +2,7 @@
 
 @section('content')
     <h1 class="mb-3">Import Guild</h1>
+    @if(isset($members))
     <form method="POST" {{ action("RosterController@importGuild", ['id' => $roster->id]) }} class="">
         {{ csrf_field() }}
         <ul class="px-1 import-guild-members-list mb-4">
@@ -21,4 +22,7 @@
         </ul>
         <button type="submit" class="btn bg-blue hover:bg-blue-darker text-white rounded px-4 py-2">Import Characters</button>
     </form>
+    @else
+        <p>There are no characters in this guild. Please double check your team settings and try again.</p>
+    @endif
 @endsection
