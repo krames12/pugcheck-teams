@@ -63,7 +63,6 @@ class CharactersController extends Controller
      */
     public function importCharacter(Roster $roster)
     {
-        dd($roster);
         $this->validate(request(), [
             'name'  => 'required',
             'realm' => 'required'
