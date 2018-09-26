@@ -180,9 +180,12 @@ class RosterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Roster $roster)
     {
-        //
+        $roster->characters()->detach($roster->id);
+        $roster->delete();
+
+        redirect('/rosters')->with('success', 'Team has been removed');
     }
 
     /**

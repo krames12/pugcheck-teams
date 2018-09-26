@@ -5,7 +5,7 @@
     <p>
         Name: {{ $roster->name }}
         @can('update-roster', $roster)
-            <a href="{{ route('editRoster', $roster->id) }}" class="px-2 py-1 border rounded">Edit</a>
+            <a href="{{ route('editRoster', $roster->id) }}" class="px-2 py-1 border rounded btn">Edit</a>
             <span class="float-right">
                 <a href="{{ route('importCharacter', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Character</a>
                 <a href="{{ route('importGuild', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Guild</a>
@@ -14,6 +14,13 @@
     </p>
     <p>Guild: {{ $roster->guild_name }}</p>
     <p>Realm: {{ $roster->realm->name }}</p>
+    <form action="/rosters/{{ $roster->id }}" method="POST" class="inline">
+        {{ csrf_field() }}
+        {{ method_field("DELETE") }}
+        <button type='submit' name="" class="px-2 py-1 border rounded btn bg-red-dark text-white hover:bg-red-darker">
+            <i class="far fa-trash-alt"></i> Delete
+        </button>
+    </form>
 
     <div class="container mt-4">
         <div class="row">
@@ -127,7 +134,7 @@
                 <div class="off-spec-box">
                     <p class="px-2">Off Spec</p>
                     @if(isset($roleArray['meleeDps']['off']))
-                        @foreach($roleArray['meleeDps']['off'] as $healer)
+                        @foreach($roleArray['meleeDps']['off'] as $melee)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($melee->class);
                             @endphp
