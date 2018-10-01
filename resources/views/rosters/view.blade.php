@@ -28,28 +28,8 @@
             <div class="col-md-4 col-sm-12 mb-3">
                 <h3>Tanks</h3>
                 <div class="main-spec-box">
-                    <p class="px-2">Main Spec</p>
-                    @if(!empty($tanks->main_spec))
-                        @foreach($tanks->main_spec as $tank)
-                            @php
-                                $className = App\Http\Controllers\Lookups::classLookup($tank->class);
-                            @endphp
-                            <p class="px-4">
-                                <img src="{{ asset('images').'/'.$className.'.png' }}"
-                                     alt="{{ $className }}"
-                                     class="class-icon-small px-1"
-                                >
-                                <span>{{ $tank->name }}</span>
-                            </p>
-                        @endforeach
-                    @else
-                        <p class="px-4">No Tanks</p>
-                    @endif
-                </div>
-                <div class="off-spec-box">
-                    <p class="px-2">Off Spec</p>
-                    @if(!empty($tanks->off_spec))
-                        @foreach($tanks->off_spec as $tank)
+                    @if(!empty($tanks))
+                        @foreach($tanks as $tank)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($tank->class);
                             @endphp
@@ -69,28 +49,8 @@
             <div class="col-md-4 col-sm-12 mb-3">
                 <h3>Healers</h3>
                 <div class="main-spec-box">
-                    <p class="px-2">Main Spec</p>
-                    @if(!empty($healers->main_spec))
-                        @foreach($healers->main_spec as $healer)
-                            @php
-                                $className = App\Http\Controllers\Lookups::classLookup($healer->class);
-                            @endphp
-                            <p class="pl-4 py-1">
-                                <img src="{{ asset('images').'/'.$className.'.png' }}"
-                                     alt="{{ $className }}"
-                                     class="class-icon-small px-1"
-                                >
-                                <span>{{ $healer->name }}</span>
-                            </p>
-                        @endforeach
-                    @else
-                        <p class="px-4">No Healers</p>
-                    @endif
-                </div>
-                <div class="off-spec-box">
-                    <p class="px-2">Off Spec</p>
-                    @if(!empty($healers->off_spec))
-                        @foreach($healers->off_spec as $healer)
+                    @if(!empty($healers))
+                        @foreach($healers as $healer)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($healer->class);
                             @endphp
@@ -113,28 +73,8 @@
             <div class="col-md-4 col-sm-12 mb-3">
                 <h3>Melee DPS</h3>
                 <div class="main-spec-box">
-                    <p class="px-2">Main Spec</p>
-                    @if(!empty($melee->main_spec))
-                        @foreach($melee->main_spec as $melee)
-                            @php
-                                $className = App\Http\Controllers\Lookups::classLookup($melee->class);
-                            @endphp
-                            <p class="pl-4 py-1">
-                                <img src="{{ asset('images').'/'.$className.'.png' }}"
-                                     alt="{{ $className }}"
-                                     class="class-icon-small px-1"
-                                >
-                                <span>{{ $melee->name }}</span>
-                            </p>
-                        @endforeach
-                    @else
-                        <p class="px-4">No Melee</p>
-                    @endif
-                </div>
-                <div class="off-spec-box">
-                    <p class="px-2">Off Spec</p>
-                    @if(!empty($melee->off_spec))
-                        @foreach($melee->off_spec as $melee)
+                    @if(!empty($melee))
+                        @foreach($melee as $melee)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($melee->class);
                             @endphp
@@ -154,28 +94,8 @@
             <div class="col-md-4 col-sm-12 mb-3">
                 <h3>Ranged DPS</h3>
                 <div class="main-spec-box">
-                    <p class="px-2">Main Spec</p>
-                    @if(!empty($ranged->main_spec))
-                        @foreach($ranged->main_spec as $ranged)
-                            @php
-                                $className = App\Http\Controllers\Lookups::classLookup($ranged->class);
-                            @endphp
-                            <p class="pl-4 py-1">
-                                <img src="{{ asset('images').'/'.$className.'.png' }}"
-                                     alt="{{ $className }}"
-                                     class="class-icon-small px-1"
-                                >
-                                <span>{{ $ranged->name }}</span>
-                            </p>
-                        @endforeach
-                    @else
-                        <p class="px-4">No Ranged</p>
-                    @endif
-                </div>
-                <div class="off-spec-box">
-                    <p class="px-2">Off Spec</p>
-                    @if(!empty($ranged->off_spec))
-                        @foreach($ranged->off_spec as $ranged)
+                    @if(!empty($ranged))
+                        @foreach($ranged as $ranged)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($ranged->class);
                             @endphp
@@ -241,19 +161,6 @@
                                         <option value="healer" {{ $character->pivot->main_spec == "healer" ? 'selected="selected"' : "" }}>Healer</option>
                                         <option value="rdps" {{ $character->pivot->main_spec == "rdps" ? 'selected="selected"' : "" }}>Ranged DPS</option>
                                         <option value="mdps" {{ $character->pivot->main_spec == "mdps" ? 'selected="selected"' : "" }}>Melee DPS</option>
-                                    </select>
-                                </td>
-                                <td class="leading-normal border-b py-1 px-2">
-                                    <select name="characters[{{ $character->id }}][off_spec]"
-                                            id="off-spec-select"
-                                            class="bg-white border rounded px-1 py-1"
-                                            {{ Auth::check() && Auth::user()->can('update-roster', $roster) ? "" : 'disabled="disabled"' }}
-                                    >
-                                        <option value="unassigned" {{ $character->pivot->off_spec == "unassigned" ? "selected" : "" }}>None</option>
-                                        <option value="tank" {{ $character->pivot->off_spec == "tank" ? "selected" : "" }}>Tank</option>
-                                        <option value="healer" {{ $character->pivot->off_spec == "healer" ? "selected" : "" }}>Healer</option>
-                                        <option value="rdps" {{ $character->pivot->off_spec == "rdps" ? "selected" : "" }}>Ranged DPS</option>
-                                        <option value="mdps" {{ $character->pivot->off_spec == "mdps" ? "selected" : "" }}>Melee DPS</option>
                                     </select>
                                 </td>
                                 @if( Auth::check() && Auth::user()->can('update-roster', $roster))

@@ -14,6 +14,7 @@ use App\Http\Controllers\Lookups;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
+use phpDocumentor\Reflection\Types\Array_;
 use Psy\Util\Json;
 
 class RosterController extends Controller
@@ -78,27 +79,15 @@ class RosterController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $roster
+     * @param  Roster $roster
      * @return \Illuminate\Http\Response
      */
     public function show(Roster $roster)
     {
-        $tanks = new \stdClass();
-        $healers = new \stdClass();
-        $melee = new \stdClass();
-        $ranged = new \stdClass();
-
-        $tanks->main_spec = $roster->characters()->where('main_spec', '=', 'tank')->get();
-        $tanks->off_spec = $roster->characters()->where('off_spec', '=', 'tank')->get();
-
-        $healers->main_spec = $roster->characters()->where('main_spec', '=', 'healer')->get();
-        $healers->off_spec = $roster->characters()->where('off_spec', '=', 'healer')->get();
-
-        $melee->main_spec = $roster->characters()->where('main_spec', '=', 'mdps')->get();
-        $melee->off_spec = $roster->characters()->where('off_spec', '=', 'mdps')->get();
-
-        $ranged->main_spec = $roster->characters()->where('main_spec', '=', 'rdps')->get();
-        $ranged->off_spec = $roster->characters()->where('off_spec', '=', 'rdps')->get();
+        $tanks = $roster->characters()->where('main_spec', '=', 'tank')->get();
+        $healers = $roster->characters()->where('main_spec', '=', 'healer')->get();
+        $melee = $roster->characters()->where('main_spec', '=', 'mdps')->get();
+        $ranged = $roster->characters()->where('main_spec', '=', 'rdps')->get();
 
 //        dd($melee);
 
