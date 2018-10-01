@@ -29,8 +29,8 @@
                 <h3>Tanks</h3>
                 <div class="main-spec-box">
                     <p class="px-2">Main Spec</p>
-                    @if(isset($roleArray['tanks']['main']))
-                        @foreach($roleArray['tanks']['main'] as $tank)
+                    @if(!empty($tanks->main_spec))
+                        @foreach($tanks->main_spec as $tank)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($tank->class);
                             @endphp
@@ -48,8 +48,8 @@
                 </div>
                 <div class="off-spec-box">
                     <p class="px-2">Off Spec</p>
-                    @if(isset($roleArray['tanks']['off']))
-                        @foreach($roleArray['tanks']['off'] as $tank)
+                    @if(!empty($tanks->off_spec))
+                        @foreach($tanks->off_spec as $tank)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($tank->class);
                             @endphp
@@ -70,8 +70,8 @@
                 <h3>Healers</h3>
                 <div class="main-spec-box">
                     <p class="px-2">Main Spec</p>
-                    @if(isset($roleArray['healers']['main']))
-                        @foreach($roleArray['healers']['main'] as $healer)
+                    @if(!empty($healers->main_spec))
+                        @foreach($healers->main_spec as $healer)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($healer->class);
                             @endphp
@@ -89,8 +89,8 @@
                 </div>
                 <div class="off-spec-box">
                     <p class="px-2">Off Spec</p>
-                    @if(isset($roleArray['healers']['off']))
-                        @foreach($roleArray['healers']['off'] as $healer)
+                    @if(!empty($healers->off_spec))
+                        @foreach($healers->off_spec as $healer)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($healer->class);
                             @endphp
@@ -114,8 +114,8 @@
                 <h3>Melee DPS</h3>
                 <div class="main-spec-box">
                     <p class="px-2">Main Spec</p>
-                    @if(isset($roleArray['meleeDps']['main']))
-                        @foreach($roleArray['meleeDps']['main'] as $melee)
+                    @if(!empty($melee->main_spec))
+                        @foreach($melee->main_spec as $melee)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($melee->class);
                             @endphp
@@ -133,8 +133,8 @@
                 </div>
                 <div class="off-spec-box">
                     <p class="px-2">Off Spec</p>
-                    @if(isset($roleArray['meleeDps']['off']))
-                        @foreach($roleArray['meleeDps']['off'] as $melee)
+                    @if(!empty($melee->off_spec))
+                        @foreach($melee->off_spec as $melee)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($melee->class);
                             @endphp
@@ -155,8 +155,8 @@
                 <h3>Ranged DPS</h3>
                 <div class="main-spec-box">
                     <p class="px-2">Main Spec</p>
-                    @if(isset($roleArray['rangedDps']['main']))
-                        @foreach($roleArray['rangedDps']['main'] as $ranged)
+                    @if(!empty($ranged->main_spec))
+                        @foreach($ranged->main_spec as $ranged)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($ranged->class);
                             @endphp
@@ -174,8 +174,8 @@
                 </div>
                 <div class="off-spec-box">
                     <p class="px-2">Off Spec</p>
-                    @if(isset($roleArray['rangedDps']['off']))
-                        @foreach($roleArray['rangedDps']['off'] as $ranged)
+                    @if(!empty($ranged->off_spec))
+                        @foreach($ranged->off_spec as $ranged)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($ranged->class);
                             @endphp

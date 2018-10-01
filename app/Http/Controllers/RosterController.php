@@ -83,40 +83,26 @@ class RosterController extends Controller
      */
     public function show(Roster $roster)
     {
-        $roleArray = [];
-        foreach($roster->tanks as $tank) {
-            if($tank->pivot->main_spec == "tank") {
-                $roleArray['tanks']['main'][] = $tank;
-            } else if ($tank->pivot->off_spec == "tank") {
-                $roleArray['tanks']['off'][] = $tank;
-            }
-        }
+        $tanks = new \stdClass();
+        $healers = new \stdClass();
+        $melee = new \stdClass();
+        $ranged = new \stdClass();
 
-        foreach($roster->healers as $healer) {
-            if($healer->pivot->main_spec == "healer") {
-                $roleArray['healers']['main'][] = $healer;
-            } else if ($healer->pivot->off_spec == "healer") {
-                $roleArray['healers']['off'][] = $healer;
-            }
-        }
+        $tanks->main_spec = $roster->characters()->where('main_spec', '=', 'tank')->get();
+        $tanks->off_spec = $roster->characters()->where('off_spec', '=', 'tank')->get();
 
-        foreach($roster->meleeDps as $melee) {
-            if($melee->pivot->main_spec == "mdps") {
-                $roleArray['meleeDps']['main'][] = $melee;
-            } else if ($melee->pivot->off_spec == "mdps") {
-                $roleArray['meleeDps']['off'][] = $melee;
-            }
-        }
+        $healers->main_spec = $roster->characters()->where('main_spec', '=', 'healer')->get();
+        $healers->off_spec = $roster->characters()->where('off_spec', '=', 'healer')->get();
 
-        foreach($roster->rangedDps as $ranged) {
-            if($ranged->pivot->main_spec == "rdps") {
-                $roleArray['rangedDps']['main'][] = $ranged;
-            } else if ($ranged->pivot->off_spec == "rdps") {
-                $roleArray['rangedDps']['off'][] = $ranged;
-            }
-        }
+        $melee->main_spec = $roster->characters()->where('main_spec', '=', 'mdps')->get();
+        $melee->off_spec = $roster->characters()->where('off_spec', '=', 'mdps')->get();
 
-        return view('rosters.view', compact(['roster', 'roleArray']));
+        $ranged->main_spec = $roster->characters()->where('main_spec', '=', 'rdps')->get();
+        $ranged->off_spec = $roster->characters()->where('off_spec', '=', 'rdps')->get();
+
+//        dd($melee);
+
+        return view('rosters.view', compact(['roster', 'tanks', 'healers', 'melee', 'ranged']));
     }
 
     /**
