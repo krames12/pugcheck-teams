@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>View Roster</h1>
+    <h1>{{ $roster->name }}</h1>
     <p>
-        Name: {{ $roster->name }}
         @can('update-roster', $roster)
             <a href="{{ route('editRoster', $roster->id) }}" class="px-2 py-1 border rounded btn">Edit</a>
             <span class="float-right">
@@ -178,7 +177,7 @@
             @endif
         @else
             <div class="text-center">
-                <h4>There are no characters assigned to this roster.</h4>
+                <h4>There are no characters assigned to this team.</h4>
             </div>
         @endif
     </div>
