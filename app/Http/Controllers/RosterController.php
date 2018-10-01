@@ -14,6 +14,7 @@ use App\Http\Controllers\Lookups;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
+use phpDocumentor\Reflection\Types\Array_;
 use Psy\Util\Json;
 
 class RosterController extends Controller
@@ -78,45 +79,19 @@ class RosterController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $roster
+     * @param  Roster $roster
      * @return \Illuminate\Http\Response
      */
     public function show(Roster $roster)
     {
-        $roleArray = [];
-        foreach($roster->tanks as $tank) {
-            if($tank->pivot->main_spec == "tank") {
-                $roleArray['tanks']['main'][] = $tank;
-            } else if ($tank->pivot->off_spec == "tank") {
-                $roleArray['tanks']['off'][] = $tank;
-            }
-        }
+        $tanks = $roster->characters()->where('main_spec', '=', 'tank')->get();
+        $healers = $roster->characters()->where('main_spec', '=', 'healer')->get();
+        $melee = $roster->characters()->where('main_spec', '=', 'mdps')->get();
+        $ranged = $roster->characters()->where('main_spec', '=', 'rdps')->get();
 
-        foreach($roster->healers as $healer) {
-            if($healer->pivot->main_spec == "healer") {
-                $roleArray['healers']['main'][] = $healer;
-            } else if ($healer->pivot->off_spec == "healer") {
-                $roleArray['healers']['off'][] = $healer;
-            }
-        }
+//        dd($melee);
 
-        foreach($roster->meleeDps as $melee) {
-            if($melee->pivot->main_spec == "mdps") {
-                $roleArray['meleeDps']['main'][] = $melee;
-            } else if ($melee->pivot->off_spec == "mdps") {
-                $roleArray['meleeDps']['off'][] = $melee;
-            }
-        }
-
-        foreach($roster->rangedDps as $ranged) {
-            if($ranged->pivot->main_spec == "rdps") {
-                $roleArray['rangedDps']['main'][] = $ranged;
-            } else if ($ranged->pivot->off_spec == "rdps") {
-                $roleArray['rangedDps']['off'][] = $ranged;
-            }
-        }
-
-        return view('rosters.view', compact(['roster', 'roleArray']));
+        return view('rosters.view', compact(['roster', 'tanks', 'healers', 'melee', 'ranged']));
     }
 
     /**
@@ -166,8 +141,7 @@ class RosterController extends Controller
                 $roster->characters()->detach($character['id']);
             } else {
                 $roster->characters()->updateExistingPivot($character['id'], [
-                    'main_spec' => $character['main_spec'],
-                    'off_spec' => $character['off_spec']
+                    'main_spec' => $character['main_spec']
                 ]);
             }
         }
@@ -180,9 +154,12 @@ class RosterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Roster $roster)
     {
-        //
+        $roster->characters()->detach($roster->id);
+        $roster->delete();
+
+        redirect('/rosters')->with('success', 'Team has been removed');
     }
 
     /**

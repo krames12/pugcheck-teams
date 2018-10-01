@@ -2,10 +2,10 @@
 
 @section('content')
     <div>
-        <h1 class="inline-block">All Rosters</h1>
+        <h1 class="inline-block">All Teams</h1>
         <a href="rosters/create" class="float-right">
             <button class=" btn bg-blue hover:bg-blue-dark rounded border border-blue text-white px-2 py-2">
-                New Roster
+                New Team
             </button>
         </a>
     </div>

@@ -12,7 +12,7 @@ class Roster extends Model
 
     public function characters()
     {
-        return $this->belongsToMany(Character::class, 'roster_characters')->withPivot(['main_spec', 'off_spec']);
+        return $this->belongsToMany(Character::class, 'roster_characters')->withPivot(['main_spec', 'off_spec'])->withTimeStamps();
     }
 
     public function realm()

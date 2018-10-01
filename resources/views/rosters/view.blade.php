@@ -1,11 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>View Roster</h1>
+    <h1>{{ $roster->name }}</h1>
     <p>
-        Name: {{ $roster->name }}
         @can('update-roster', $roster)
-            <a href="{{ route('editRoster', $roster->id) }}" class="px-2 py-1 border rounded">Edit</a>
+            <a href="{{ route('editRoster', $roster->id) }}" class="px-2 py-1 border rounded btn">Edit</a>
             <span class="float-right">
                 <a href="{{ route('importCharacter', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Character</a>
                 <a href="{{ route('importGuild', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Guild</a>
@@ -14,6 +13,13 @@
     </p>
     <p>Guild: {{ $roster->guild_name }}</p>
     <p>Realm: {{ $roster->realm->name }}</p>
+    <form action="/rosters/{{ $roster->id }}" method="POST" class="inline">
+        {{ csrf_field() }}
+        {{ method_field("DELETE") }}
+        <button type='submit' name="" class="px-2 py-1 border rounded btn bg-red-dark text-white hover:bg-red-darker">
+            <i class="far fa-trash-alt"></i> Delete
+        </button>
+    </form>
 
     <div class="container mt-4">
         <div class="row">
@@ -21,28 +27,8 @@
             <div class="col-md-4 col-sm-12 mb-3">
                 <h3>Tanks</h3>
                 <div class="main-spec-box">
-                    <p class="px-2">Main Spec</p>
-                    @if(isset($roleArray['tanks']['main']))
-                        @foreach($roleArray['tanks']['main'] as $tank)
-                            @php
-                                $className = App\Http\Controllers\Lookups::classLookup($tank->class);
-                            @endphp
-                            <p class="px-4">
-                                <img src="{{ asset('images').'/'.$className.'.png' }}"
-                                     alt="{{ $className }}"
-                                     class="class-icon-small px-1"
-                                >
-                                <span>{{ $tank->name }}</span>
-                            </p>
-                        @endforeach
-                    @else
-                        <p class="px-4">No Tanks</p>
-                    @endif
-                </div>
-                <div class="off-spec-box">
-                    <p class="px-2">Off Spec</p>
-                    @if(isset($roleArray['tanks']['off']))
-                        @foreach($roleArray['tanks']['off'] as $tank)
+                    @if(count($tanks))
+                        @foreach($tanks as $tank)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($tank->class);
                             @endphp
@@ -62,28 +48,8 @@
             <div class="col-md-4 col-sm-12 mb-3">
                 <h3>Healers</h3>
                 <div class="main-spec-box">
-                    <p class="px-2">Main Spec</p>
-                    @if(isset($roleArray['healers']['main']))
-                        @foreach($roleArray['healers']['main'] as $healer)
-                            @php
-                                $className = App\Http\Controllers\Lookups::classLookup($healer->class);
-                            @endphp
-                            <p class="pl-4 py-1">
-                                <img src="{{ asset('images').'/'.$className.'.png' }}"
-                                     alt="{{ $className }}"
-                                     class="class-icon-small px-1"
-                                >
-                                <span>{{ $healer->name }}</span>
-                            </p>
-                        @endforeach
-                    @else
-                        <p class="px-4">No Healers</p>
-                    @endif
-                </div>
-                <div class="off-spec-box">
-                    <p class="px-2">Off Spec</p>
-                    @if(isset($roleArray['healers']['off']))
-                        @foreach($roleArray['healers']['off'] as $healer)
+                    @if(count($healers))
+                        @foreach($healers as $healer)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($healer->class);
                             @endphp
@@ -106,28 +72,8 @@
             <div class="col-md-4 col-sm-12 mb-3">
                 <h3>Melee DPS</h3>
                 <div class="main-spec-box">
-                    <p class="px-2">Main Spec</p>
-                    @if(isset($roleArray['meleeDps']['main']))
-                        @foreach($roleArray['meleeDps']['main'] as $melee)
-                            @php
-                                $className = App\Http\Controllers\Lookups::classLookup($melee->class);
-                            @endphp
-                            <p class="pl-4 py-1">
-                                <img src="{{ asset('images').'/'.$className.'.png' }}"
-                                     alt="{{ $className }}"
-                                     class="class-icon-small px-1"
-                                >
-                                <span>{{ $melee->name }}</span>
-                            </p>
-                        @endforeach
-                    @else
-                        <p class="px-4">No Melee</p>
-                    @endif
-                </div>
-                <div class="off-spec-box">
-                    <p class="px-2">Off Spec</p>
-                    @if(isset($roleArray['meleeDps']['off']))
-                        @foreach($roleArray['meleeDps']['off'] as $healer)
+                    @if(count($melee))
+                        @foreach($melee as $melee)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($melee->class);
                             @endphp
@@ -147,28 +93,8 @@
             <div class="col-md-4 col-sm-12 mb-3">
                 <h3>Ranged DPS</h3>
                 <div class="main-spec-box">
-                    <p class="px-2">Main Spec</p>
-                    @if(isset($roleArray['rangedDps']['main']))
-                        @foreach($roleArray['rangedDps']['main'] as $ranged)
-                            @php
-                                $className = App\Http\Controllers\Lookups::classLookup($ranged->class);
-                            @endphp
-                            <p class="pl-4 py-1">
-                                <img src="{{ asset('images').'/'.$className.'.png' }}"
-                                     alt="{{ $className }}"
-                                     class="class-icon-small px-1"
-                                >
-                                <span>{{ $ranged->name }}</span>
-                            </p>
-                        @endforeach
-                    @else
-                        <p class="px-4">No Ranged</p>
-                    @endif
-                </div>
-                <div class="off-spec-box">
-                    <p class="px-2">Off Spec</p>
-                    @if(isset($roleArray['rangedDps']['off']))
-                        @foreach($roleArray['rangedDps']['off'] as $ranged)
+                    @if(count($ranged))
+                        @foreach($ranged as $ranged)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($ranged->class);
                             @endphp
@@ -203,7 +129,6 @@
                         <tr>
                             <th>Character</th>
                             <th>Main Spec</th>
-                            <th>Off Spec</th>
                             @can('update-roster', $roster)
                                 <th>Remove</th>
                             @endcan
@@ -236,19 +161,6 @@
                                         <option value="mdps" {{ $character->pivot->main_spec == "mdps" ? 'selected="selected"' : "" }}>Melee DPS</option>
                                     </select>
                                 </td>
-                                <td class="leading-normal border-b py-1 px-2">
-                                    <select name="characters[{{ $character->id }}][off_spec]"
-                                            id="off-spec-select"
-                                            class="bg-white border rounded px-1 py-1"
-                                            {{ Auth::check() && Auth::user()->can('update-roster', $roster) ? "" : 'disabled="disabled"' }}
-                                    >
-                                        <option value="unassigned" {{ $character->pivot->off_spec == "unassigned" ? "selected" : "" }}>None</option>
-                                        <option value="tank" {{ $character->pivot->off_spec == "tank" ? "selected" : "" }}>Tank</option>
-                                        <option value="healer" {{ $character->pivot->off_spec == "healer" ? "selected" : "" }}>Healer</option>
-                                        <option value="rdps" {{ $character->pivot->off_spec == "rdps" ? "selected" : "" }}>Ranged DPS</option>
-                                        <option value="mdps" {{ $character->pivot->off_spec == "mdps" ? "selected" : "" }}>Melee DPS</option>
-                                    </select>
-                                </td>
                                 @if( Auth::check() && Auth::user()->can('update-roster', $roster))
                                     <td class="border-b py-1 px-2">
                                         <input type="checkbox" name="characters[{{ $character->id }}][remove]" value="remove" />
@@ -265,7 +177,7 @@
             @endif
         @else
             <div class="text-center">
-                <h4>There are no characters assigned to this roster.</h4>
+                <h4>There are no characters assigned to this team.</h4>
             </div>
         @endif
     </div>
