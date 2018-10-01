@@ -141,8 +141,7 @@ class RosterController extends Controller
                 $roster->characters()->detach($character['id']);
             } else {
                 $roster->characters()->updateExistingPivot($character['id'], [
-                    'main_spec' => $character['main_spec'],
-                    'off_spec' => $character['off_spec']
+                    'main_spec' => $character['main_spec']
                 ]);
             }
         }

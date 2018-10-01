@@ -28,7 +28,7 @@
             <div class="col-md-4 col-sm-12 mb-3">
                 <h3>Tanks</h3>
                 <div class="main-spec-box">
-                    @if(!empty($tanks))
+                    @if(count($tanks))
                         @foreach($tanks as $tank)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($tank->class);
@@ -49,7 +49,7 @@
             <div class="col-md-4 col-sm-12 mb-3">
                 <h3>Healers</h3>
                 <div class="main-spec-box">
-                    @if(!empty($healers))
+                    @if(count($healers))
                         @foreach($healers as $healer)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($healer->class);
@@ -73,7 +73,7 @@
             <div class="col-md-4 col-sm-12 mb-3">
                 <h3>Melee DPS</h3>
                 <div class="main-spec-box">
-                    @if(!empty($melee))
+                    @if(count($melee))
                         @foreach($melee as $melee)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($melee->class);
@@ -94,7 +94,7 @@
             <div class="col-md-4 col-sm-12 mb-3">
                 <h3>Ranged DPS</h3>
                 <div class="main-spec-box">
-                    @if(!empty($ranged))
+                    @if(count($ranged))
                         @foreach($ranged as $ranged)
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($ranged->class);
@@ -130,7 +130,6 @@
                         <tr>
                             <th>Character</th>
                             <th>Main Spec</th>
-                            <th>Off Spec</th>
                             @can('update-roster', $roster)
                                 <th>Remove</th>
                             @endcan
