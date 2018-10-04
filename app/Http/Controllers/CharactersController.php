@@ -53,7 +53,7 @@ class CharactersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function import(Roster $roster) {
-        $realms = \App\Realm::all();
+        $realms = \App\Realm::where('region', 'us')->get();;
 
         return view('characters.import', compact(['realms', 'roster']));
     }

@@ -43,7 +43,7 @@ class RosterController extends Controller
      */
     public function create()
     {
-        $realms = Realm::all();
+        $realms = Realm::where('region', 'us')->get();
 
         return view('rosters.create', compact('realms'));
     }
@@ -102,7 +102,7 @@ class RosterController extends Controller
      */
     public function edit(Roster $roster)
     {
-        $realms = Realm::all();
+        $realms = Realm::where('region', 'us')->get();
         return view('rosters.edit', compact(['roster', 'realms']));
     }
 
