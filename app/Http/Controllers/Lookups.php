@@ -52,9 +52,60 @@ class Lookups extends Controller
         }
     }
 
+    public static function itemSlotNumber($slotNumber)
+    {
+        switch($slotNumber) {
+            case('1'):
+                return "head";
+                break;
+            case('2'):
+                return "neck";
+                break;
+            case('3'):
+                return "shoulder";
+                break;
+            case('5'):
+                return "chest";
+                break;
+            case('6'):
+                return "waist";
+                break;
+            case('7'):
+                return "legs";
+                break;
+            case('8'):
+                return "feet";
+                break;
+            case('9'):
+                return "wrist";
+                break;
+            case('10'):
+                return "hands";
+                break;
+            case('11'):
+                return "finger1";
+                break;
+            case('12'):
+                return "finger2";
+                break;
+            case('13'):
+                return "trinket1";
+                break;
+            case('14'):
+                return "trinket2";
+                break;
+            case('15'):
+                return "mainHand";
+                break;
+            case('16'):
+                return "offHand";
+                break;
+        }
+    }
+
     public static function apiCharacter($characterName, $realmSlug)
     {
-        $requestUrl = $requestUrl = "https://us.api.battle.net/wow/character/$realmSlug/$characterName?fields=items&locale=en_US&apikey=".env('BLIZZ_KEY');
+        $requestUrl = "https://us.api.battle.net/wow/character/$realmSlug/$characterName?fields=items,audit&locale=en_US&apikey=".env('BLIZZ_KEY');
 
         $client = new Client();
         try {
