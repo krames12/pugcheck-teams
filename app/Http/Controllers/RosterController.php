@@ -159,7 +159,7 @@ class RosterController extends Controller
         $roster->characters()->detach($roster->id);
         $roster->delete();
 
-        redirect('/rosters')->with('success', 'Team has been removed');
+        return redirect('/rosters')->with('success', 'Team has been removed');
     }
 
     /**
