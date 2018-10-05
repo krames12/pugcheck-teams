@@ -212,7 +212,13 @@ class RosterController extends Controller
 
     public function updateCharacters(Roster $roster)
     {
-        $characters = $roster->characters();
-        dd($characters);
+        $characters = $roster->characters;
+        foreach($characters as $character) {
+            $realm = Realm::find($character->realm);
+            $apiCharacter = Lookups::apiCharacter($character->name, $realm->slug);
+            CharactersController::updateCharacter($apiCharacter, $character);
+        }
+
+        return back()->with('success', count($characters).' characters successfully updated');
     }
 }

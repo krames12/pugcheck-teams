@@ -90,7 +90,7 @@ class CharactersController extends Controller
             return $newCharacter;
         } else {
             $existingCharacter = Character::find($characterExists->id);
-            $updatedCharacter = self::updateCharacter($existingCharacter);
+            $updatedCharacter = self::updateCharacter($character, $existingCharacter);
             return $updatedCharacter;
         }
     }
@@ -133,7 +133,7 @@ class CharactersController extends Controller
         return $newCharacter->id;
     }
 
-    private static function updateCharacter($character)
+    public static function updateCharacter($character, $existingCharacter)
     {
         foreach($character->items as $key => $item) {
             if($key == "averageItemLevelEquipped" || $key == "averageItemLevel") {

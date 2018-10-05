@@ -6,6 +6,13 @@
             <a href="{{ route('editRoster', $roster->id) }}" class="px-2 py-1 text-base align-middle">
                 <i class="edit-icon far fa-edit"></i>
             </a>
+        @endcan
+        <form action="/rosters/{{ $roster->id }}/update" method="POST" class="inline-block">
+            {{ csrf_field() }}
+            {{ method_field("PATCH") }}
+            <button type="submit" class="text-base align-middle"><i class="fas fa-sync-alt"></i> Update Characters</button>
+        </form>
+        @can('update-roster', $roster)
             <div class="float-right text-right">
                 <p class="text-base text-grey-darkest cursor-pointer select-none p-2" id="import-dropdown">Import <i class="icon text-grey-darkest fas fa-caret-down"></i></p>
                 <div class="import-dropdown-menu bg-white border rounded hidden" id="import-dropdown-menu">
@@ -36,7 +43,7 @@
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($tank->class);
                             @endphp
-                            <p class="px-4">
+                            <p class="pl-4 py-1">
                                 <img src="{{ asset('images').'/'.$className.'.png' }}"
                                      alt="{{ $className }}"
                                      class="class-icon-small px-1"
