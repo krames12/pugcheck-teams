@@ -10490,6 +10490,10 @@ a.text-dark:hover {
   color: #212121;
 }
 
+.icon {
+  margin: 5px;
+}
+
 footer {
   text-align: center;
   font-size: 0.75em;

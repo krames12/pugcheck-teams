@@ -12,9 +12,9 @@
                 <p>The end goal is to track whether members have their gear is gemmed or enchanted, as well as azerite level and traits. Since this is the Alpha, the app currently allows users to create teams and add characters to them. The characters and their gear are pulled in from Blizzard's servers.</p>
                 <p class="mt-2"><strong>Upcoming Features</strong></p>
                 <ul>
-                    <li>Gems & Enchants</li>
+                    <li>Gems & enchants</li>
                     <li>Interface improvements</li>
-                    <li>Character management (i.e. My Characters)</li>
+                    <li>Team groups (more info <a href="https://github.com/krames12/pugcheck-teams/issues/2">here</a>)</li>
                 </ul>
                 <p><a href="https://github.com/krames12/pugcheck-teams/issues">Click here</a> to see a list of current ideas and bugs that are being worked on.</p>
                 <div class="shadow border rounded bg-white mt-2 p-2">

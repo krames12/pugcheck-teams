@@ -3,11 +3,16 @@
 @section('content')
     <h1>{{ $roster->name }}
         @can('update-roster', $roster)
-            <a href="{{ route('editRoster', $roster->id) }}" class="px-2 py-1 text-base align-middle"><i class="edit-icon far fa-edit"></i></a>
-            <span class="float-right">
-                <a href="{{ route('importCharacter', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Character</a>
-                <a href="{{ route('importGuild', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Guild</a>
-            </span>
+            <a href="{{ route('editRoster', $roster->id) }}" class="px-2 py-1 text-base align-middle">
+                <i class="edit-icon far fa-edit"></i>
+            </a>
+            <div class="float-right text-right">
+                <p class="text-base text-grey-darkest cursor-pointer select-none p-2" id="import-dropdown">Import <i class="icon text-grey-darkest fas fa-caret-down"></i></p>
+                <div class="import-dropdown-menu bg-white border rounded hidden" id="import-dropdown-menu">
+                    <a href="{{ route('importGuild', $roster->id) }}" class="dropdown-item block text-base text-right px-3 py-2">Guild</a>
+                    <a href="{{ route('importCharacter', $roster->id) }}" class="dropdown-item block text-base text-right px-3 py-2">Character</a>
+                </div>
+            </div>
         @endcan
     </h1>
     <p>Guild: {{ $roster->guild_name }}</p>
@@ -161,7 +166,7 @@
                                     </select>
                                 </td>
                                 @if( Auth::check() && Auth::user()->can('update-roster', $roster))
-                                    <td class="border-b py-1 px-2">
+                                    <td class="border-b py-1 px-2 text-center">
                                         <input type="checkbox" name="characters[{{ $character->id }}][remove]" value="remove" />
                                     </td>
                                 @endif
@@ -182,7 +187,9 @@
     </div>
 
     <script>
-
+        document.getElementById('import-dropdown').addEventListener('click', event => {
+            document.getElementById('import-dropdown-menu').classList.toggle('hidden');
+        });
     </script>
 
 @endsection

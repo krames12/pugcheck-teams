@@ -209,4 +209,10 @@ class RosterController extends Controller
         return redirect()->route('rosterShow', ['id' => $roster->id])
                          ->with('success', count($request->characters)." guild member have been imported");
     }
+
+    public function updateCharacters(Roster $roster)
+    {
+        $characters = $roster->characters();
+        dd($characters);
+    }
 }
