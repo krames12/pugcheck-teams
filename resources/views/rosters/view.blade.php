@@ -10,7 +10,7 @@
         <form action="/rosters/{{ $roster->id }}/update" method="POST" class="inline-block">
             {{ csrf_field() }}
             {{ method_field("PATCH") }}
-            <button type="submit" class="text-base align-middle"><i class="fas fa-sync-alt"></i> Update Characters</button>
+            <button type="submit" class="text-base align-middle btn border bg-blue hover:bg-blue-dark text-white rounded"><i class="fas fa-sync-alt text-white"></i> Update Characters</button>
         </form>
         @can('update-roster', $roster)
             <div class="float-right text-right">
