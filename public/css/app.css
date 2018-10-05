@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);/*!
+@import url(https://fonts.googleapis.com/css?family=Roboto);@import url(https://fonts.googleapis.com/css?family=Nunito);/*!
  * Bootstrap v4.1.2 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
@@ -10483,6 +10483,47 @@ a.text-dark:hover {
   background-color: #fff;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
+  color: #212121;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.75em;
+  margin: 20px;
+  padding: 5px;
+}
+
+footer .social-icon {
+  color: #212121;
+  font-size: 2em;
+  margin: 5px;
+  -webkit-transition: color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
+}
+
+footer .social-icon:hover {
+  color: white;
+  text-decoration: none;
+}
+
+footer .footer-credit {
+  font-weight: 600;
+  color: #212121;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+footer .footer-credit:hover {
+  color: #3490dc;
+  text-decoration: none;
+}
+
+.credit {
+  margin-top: 5px;
 }
 
 a.btn {

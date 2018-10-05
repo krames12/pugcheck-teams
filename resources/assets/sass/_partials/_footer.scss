@@ -1,0 +1,29 @@
+footer {
+    text-align: center;
+    font-size: 0.75em;
+    margin: 20px;
+    padding: 5px;
+    .social-icon {
+        color: $dark-grey;
+        font-size: 2em;
+        margin: 5px;
+        transition: color 0.2s ease-in-out;
+        &:hover {
+            color: white;
+            text-decoration: none;
+        }
+    }
+    .footer-credit {
+        font-weight: 600;
+        color: $dark-grey;
+        transition: all 0.2s ease-in-out;
+        &:hover {
+            color: $blue;
+            text-decoration: none;
+        }
+    }
+}
+
+.credit {
+    margin-top: 5px;
+}

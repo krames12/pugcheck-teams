@@ -3,7 +3,6 @@
 @section('content')
     <div class="content">
         <div class="">
-            <h1 class="inline-block">PugCheck Teams</h1>
             <a href="{{ route('createRoster') }}" class="float-right btn bg-blue rounded text-white px-2 py-2">New Team</a>
         </div>
         <div class="mt-6">
@@ -17,10 +16,11 @@
                     <li>Interface improvements</li>
                     <li>Character management (i.e. My Characters)</li>
                 </ul>
+                <p><a href="https://github.com/krames12/pugcheck-teams/issues">Click here</a> to see a list of current ideas and bugs that are being worked on.</p>
                 <div class="shadow border rounded bg-white mt-2 p-2">
                     <h4 class="inline-block">Feedback</h4>
                     <p>
-                        If have any feedback, such as suggestions or thing being broken, don't hesitate to reach out! Please contact me on Discord (Krames#4203), Battle Net (Krames#1425), or on Twitter (@krames12).
+                        If you have any feedback, such as suggestions or things being broken, don't hesitate to reach out! Please contact me on Discord (Krames#4203), Battle.net (Krames#1425), or on Twitter (@krames12).
                     </p>
                 </div>
             </div>
