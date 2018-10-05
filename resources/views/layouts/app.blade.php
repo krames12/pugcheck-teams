@@ -36,7 +36,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li><a href="{{ route('rosters') }}">Rosters</a></li>
+                        <li><a href="{{ route('rosters') }}">Teams</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -77,6 +77,7 @@
             @include('partials.messages')
             @yield('content')
         </main>
+        @include('partials.footer')
     </div>
 </body>
 </html>

@@ -29,6 +29,7 @@ Route::delete('/rosters/{roster}', 'RosterController@destroy')->name('removeRost
 Route::get('/rosters/{roster}/edit', 'RosterController@edit')->name('editRoster');
 Route::patch('/rosters/{roster}/edit', 'RosterController@update');
 Route::patch('/rosters/{roster}/roles', 'RosterController@updateRoles');
+Route::patch('/rosters/{roster}/update', 'RosterController@updateCharacters');
 
 Auth::routes();
 

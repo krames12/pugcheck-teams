@@ -1,23 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>{{ $roster->name }}</h1>
-    <p>
+    <h1>{{ $roster->name }}
         @can('update-roster', $roster)
-            <a href="{{ route('editRoster', $roster->id) }}" class="px-2 py-1 border rounded btn">Edit</a>
-            <span class="float-right">
-                <a href="{{ route('importCharacter', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Character</a>
-                <a href="{{ route('importGuild', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Guild</a>
-            </span>
+            <a href="{{ route('editRoster', $roster->id) }}" class="px-2 py-1 text-base align-middle">
+                <i class="edit-icon far fa-edit"></i>
+            </a>
         @endcan
-    </p>
+        <form action="/rosters/{{ $roster->id }}/update" method="POST" class="inline-block">
+            {{ csrf_field() }}
+            {{ method_field("PATCH") }}
+            <button type="submit" class="text-base align-middle btn border bg-blue hover:bg-blue-dark text-white rounded"><i class="fas fa-sync-alt text-white"></i> Update Characters</button>
+        </form>
+        @can('update-roster', $roster)
+            <div class="float-right text-right">
+                <p class="text-base text-grey-darkest cursor-pointer select-none p-2" id="import-dropdown">Import <i class="icon text-grey-darkest fas fa-caret-down"></i></p>
+                <div class="import-dropdown-menu bg-white border rounded hidden" id="import-dropdown-menu">
+                    <a href="{{ route('importGuild', $roster->id) }}" class="dropdown-item block text-base text-right px-3 py-2">Guild</a>
+                    <a href="{{ route('importCharacter', $roster->id) }}" class="dropdown-item block text-base text-right px-3 py-2">Character</a>
+                </div>
+            </div>
+        @endcan
+    </h1>
     <p>Guild: {{ $roster->guild_name }}</p>
     <p>Realm: {{ $roster->realm->name }}</p>
     <form action="/rosters/{{ $roster->id }}" method="POST" class="inline">
         {{ csrf_field() }}
         {{ method_field("DELETE") }}
         <button type='submit' name="" class="px-2 py-1 border rounded btn bg-red-dark text-white hover:bg-red-darker">
-            <i class="far fa-trash-alt"></i> Delete
+            <i class="text-white far fa-trash-alt"></i> Delete
         </button>
     </form>
 
@@ -32,7 +43,7 @@
                             @php
                                 $className = App\Http\Controllers\Lookups::classLookup($tank->class);
                             @endphp
-                            <p class="px-4">
+                            <p class="pl-4 py-1">
                                 <img src="{{ asset('images').'/'.$className.'.png' }}"
                                      alt="{{ $className }}"
                                      class="class-icon-small px-1"
@@ -162,7 +173,7 @@
                                     </select>
                                 </td>
                                 @if( Auth::check() && Auth::user()->can('update-roster', $roster))
-                                    <td class="border-b py-1 px-2">
+                                    <td class="border-b py-1 px-2 text-center">
                                         <input type="checkbox" name="characters[{{ $character->id }}][remove]" value="remove" />
                                     </td>
                                 @endif
@@ -183,7 +194,9 @@
     </div>
 
     <script>
-
+        document.getElementById('import-dropdown').addEventListener('click', event => {
+            document.getElementById('import-dropdown-menu').classList.toggle('hidden');
+        });
     </script>
 
 @endsection

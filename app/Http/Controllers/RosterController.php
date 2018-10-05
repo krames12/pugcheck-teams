@@ -159,7 +159,7 @@ class RosterController extends Controller
         $roster->characters()->detach($roster->id);
         $roster->delete();
 
-        redirect('/rosters')->with('success', 'Team has been removed');
+        return redirect('/rosters')->with('success', 'Team has been removed');
     }
 
     /**
@@ -208,5 +208,17 @@ class RosterController extends Controller
 
         return redirect()->route('rosterShow', ['id' => $roster->id])
                          ->with('success', count($request->characters)." guild member have been imported");
+    }
+
+    public function updateCharacters(Roster $roster)
+    {
+        $characters = $roster->characters;
+        foreach($characters as $character) {
+            $realm = Realm::find($character->realm);
+            $apiCharacter = Lookups::apiCharacter($character->name, $realm->slug);
+            CharactersController::updateCharacter($apiCharacter, $character);
+        }
+
+        return back()->with('success', count($characters).' characters successfully updated');
     }
 }
