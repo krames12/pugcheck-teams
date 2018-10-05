@@ -1,23 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>{{ $roster->name }}</h1>
-    <p>
+    <h1>{{ $roster->name }}
         @can('update-roster', $roster)
-            <a href="{{ route('editRoster', $roster->id) }}" class="px-2 py-1 border rounded btn">Edit</a>
+            <a href="{{ route('editRoster', $roster->id) }}" class="px-2 py-1 text-base align-middle"><i class="edit-icon far fa-edit"></i></a>
             <span class="float-right">
                 <a href="{{ route('importCharacter', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Character</a>
                 <a href="{{ route('importGuild', $roster->id) }}" class="btn bg-blue text-white px-2 py-2 rounded">Import Guild</a>
             </span>
         @endcan
-    </p>
+    </h1>
     <p>Guild: {{ $roster->guild_name }}</p>
     <p>Realm: {{ $roster->realm->name }}</p>
     <form action="/rosters/{{ $roster->id }}" method="POST" class="inline">
         {{ csrf_field() }}
         {{ method_field("DELETE") }}
         <button type='submit' name="" class="px-2 py-1 border rounded btn bg-red-dark text-white hover:bg-red-darker">
-            <i class="far fa-trash-alt"></i> Delete
+            <i class="text-white far fa-trash-alt"></i> Delete
         </button>
     </form>
 
