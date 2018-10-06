@@ -163,9 +163,9 @@ class CharactersController extends Controller
         return $existingCharacter->id;
     }
 
-    private static function updateItemProperties($item, $characterGearId, $update = true)
+    private static function updateItemProperties($item, $characterGearId)
     {
-        if(!$update) {
+        if($itemProperty = ItemProperties::where('character_gear_id', '12')->get()) {
 
         } else {
             $prop = new ItemProperties();
