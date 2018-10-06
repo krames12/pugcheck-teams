@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Character;
 use App\CharacterGear;
+use App\ItemProperties;
 use App\Realm;
 use App\Roster;
 
@@ -160,5 +161,16 @@ class CharactersController extends Controller
         $existingCharacter->save();
 
         return $existingCharacter->id;
+    }
+
+    private static function updateItemProperties($item, $characterGearId, $update = true)
+    {
+        if(!$update) {
+
+        } else {
+            $prop = new ItemProperties();
+        }
+
+        return;
     }
 }
