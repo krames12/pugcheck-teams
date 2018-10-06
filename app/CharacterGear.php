@@ -12,4 +12,9 @@ class CharacterGear extends Model
     {
         return $this->hasMany(ItemProperties::class);
     }
+
+    public function character()
+    {
+        return $this->belongsTo(Character::class);
+    }
 }
