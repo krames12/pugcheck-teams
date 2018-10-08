@@ -52,7 +52,19 @@
                             </p>
                             <p class="character-enchants pl-4 py-1">
                                 @foreach($tank->enchantedGear as $item)
-                                    <a href="#" data-wowhead="item={{ $item->blizz_id }}"></a>
+                                    @php
+                                        $bonusText = "";
+                                        $bonuses = json_decode($item->bonus_ids);
+                                        foreach($bonuses as $bonus) {
+                                            $bonusText .= $bonus.":";
+                                        }
+                                        $bonusText = substr($bonusText, 0, -1);
+                                    @endphp
+                                    <a href="#"
+                                       data-wowhead="item={{ $item->blizz_id }}
+                                       {{ $item->enchant->spell_id != 0 ? "&ench=".$item->enchant->spell_id : "" }}
+                                       &bonus={{ $bonusText }}"
+                                    ></a>
                                 @endforeach
                             </p>
                         @endforeach

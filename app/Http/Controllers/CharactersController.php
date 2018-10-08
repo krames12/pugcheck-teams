@@ -121,6 +121,7 @@ class CharactersController extends Controller
             $newItem->item_slot = $key;
             $newItem->name = $item->name;
             $newItem->item_level = $item->itemLevel;
+            $newItem->bonus_ids = json_encode($item->bonusLists);
 
             if($key == "neck"){
                 $characterInfo = Character::find($newCharacter->id);
@@ -151,6 +152,7 @@ class CharactersController extends Controller
             $existingItem->item_slot = $key;
             $existingItem->name = $item->name;
             $existingItem->item_level = $item->itemLevel;
+            $existingItem->bonus_ids = json_encode($item->bonusLists);
 
             if($key == "neck"){
                 $existingCharacter->azerite_level = $item->azeriteItem->azeriteLevel;

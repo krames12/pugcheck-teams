@@ -10494,6 +10494,10 @@ a.text-dark:hover {
   margin: 5px;
 }
 
+.wowhead-tooltip table td {
+  color: white;
+}
+
 footer {
   text-align: center;
   font-size: 0.75em;
