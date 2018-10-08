@@ -82,7 +82,7 @@
 
     <script>
         // wowhead tooltips
-        var whTooltips = {colorLinks: true, iconizeLinks: true, renameLinks: true};
+        var whTooltips = {colorLinks: true, iconizeLinks: true, iconSize: 'small'};
     </script>
     <script src="https://wow.zamimg.com/widgets/power.js"></script>
 

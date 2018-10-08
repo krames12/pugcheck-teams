@@ -50,6 +50,11 @@
                                 >
                                 <span>{{ $tank->name }}</span>
                             </p>
+                            <p class="character-enchants pl-4 py-1">
+                                @foreach($tank->enchantedGear as $item)
+                                    <a href="#" data-wowhead="item={{ $item->blizz_id }}"></a>
+                                @endforeach
+                            </p>
                         @endforeach
                     @else
                         <p class="px-4">No Tanks</p>

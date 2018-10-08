@@ -89,8 +89,6 @@ class RosterController extends Controller
         $melee = $roster->characters()->where('main_spec', '=', 'mdps')->get();
         $ranged = $roster->characters()->where('main_spec', '=', 'rdps')->get();
 
-//        dd($melee);
-
         return view('rosters.view', compact(['roster', 'tanks', 'healers', 'melee', 'ranged']));
     }
 

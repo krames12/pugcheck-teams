@@ -18,6 +18,11 @@ class Character extends Model
         return $this->hasMany(CharacterGear::class);
     }
 
+    public function enchantedGear()
+    {
+        return $this->hasMany(CharacterGear::class)->whereIn('item_slot', ['finger1', 'finger2', 'mainHand']);
+    }
+
     public function rosters()
     {
         return $this->belongsToMany(Roster::class, 'roster_characters')->withPivot('main_spec', 'off_spec');
