@@ -129,6 +129,8 @@ class CharactersController extends Controller
             }
 
             $newItem->save();
+
+            self::updateItemProperties($key, $item, $newItem->id);
         }
 
         return $newCharacter->id;
@@ -154,6 +156,8 @@ class CharactersController extends Controller
                 $existingCharacter->azerite_level = $item->azeriteItem->azeriteLevel;
             }
 
+            self::updateItemProperties($key, $item, $existingItem->id);
+
             $existingItem->save();
         }
 
@@ -163,13 +167,26 @@ class CharactersController extends Controller
         return $existingCharacter->id;
     }
 
-    private static function updateItemProperties($item, $characterGearId)
+    private static function updateItemProperties($itemSlot, $item, $characterGearId)
     {
-        if($itemProperty = ItemProperties::where('character_gear_id', '12')->get()) {
+        // @TODO figure out empty gem slots. Only implementing enchants on rings and wep for now.
 
-        } else {
-            $prop = new ItemProperties();
+        // enchant specific for now
+
+        $enchantList = array('finger1', 'finger2', 'mainHand');
+        if(in_array($itemSlot, $enchantList)) {
+            // check to see if "enchant" field exists on that item id
+            if(!$prop = ItemProperties::where('character_gear_id', $characterGearId)->where('property', 'enchant')->first()) {
+                $prop = new ItemProperties();
+                $prop->character_gear_id = $characterGearId;
+                $prop->property = "enchant";
+            }
+
+            $prop->spell_id = isset($item->tooltipParams->enchant) ? $item->tooltipParams->enchant : 0;
+            $prop->save();
         }
+
+        // gem stuff goes here
 
         return;
     }
