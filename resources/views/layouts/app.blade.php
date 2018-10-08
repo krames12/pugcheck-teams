@@ -79,5 +79,12 @@
         </main>
         @include('partials.footer')
     </div>
+
+    <script>
+        // wowhead tooltips
+        var whTooltips = {colorLinks: true, iconizeLinks: true, renameLinks: true};
+    </script>
+    <script src="https://wow.zamimg.com/widgets/power.js"></script>
+
 </body>
 </html>
