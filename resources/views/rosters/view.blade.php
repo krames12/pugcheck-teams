@@ -62,8 +62,9 @@
                                     @endphp
                                     <a href="#"
                                        data-wowhead="item={{ $item->blizz_id }}
-                                       {{ $item->enchant->spell_id != 0 ? "&ench=".$item->enchant->spell_id : "" }}
-                                       &bonus={{ $bonusText }}"
+                                            {{ $item->socket->spell_id != 0 ? "&gems=".$item->socket->spell_id : "" }}
+                                            {{ $item->enchant->spell_id != 0 ? "&ench=".$item->enchant->spell_id : "" }}
+                                            &bonus={{ $bonusText }}"
                                     ></a>
                                 @endforeach
                             </p>

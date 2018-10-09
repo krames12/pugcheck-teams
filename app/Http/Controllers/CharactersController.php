@@ -147,7 +147,7 @@ class CharactersController extends Controller
                 ['item_slot', '=', $key],
                 ['character_id', '=', $existingCharacter->id]
             ])->first();
-
+            
             $existingItem->blizz_id = $item->id;
             $existingItem->item_slot = $key;
             $existingItem->name = $item->name;
@@ -178,17 +178,26 @@ class CharactersController extends Controller
         $enchantList = array('finger1', 'finger2', 'mainHand');
         if(in_array($itemSlot, $enchantList)) {
             // check to see if "enchant" field exists on that item id
-            if(!$prop = ItemProperties::where('character_gear_id', $characterGearId)->where('property', 'enchant')->first()) {
-                $prop = new ItemProperties();
-                $prop->character_gear_id = $characterGearId;
-                $prop->property = "enchant";
+            if(!$enchantProp = ItemProperties::where('character_gear_id', $characterGearId)->where('property', 'enchant')->first()) {
+                $enchantProp = new ItemProperties();
+                $enchantProp->character_gear_id = $characterGearId;
+                $enchantProp->property = "enchant";
             }
 
-            $prop->spell_id = isset($item->tooltipParams->enchant) ? $item->tooltipParams->enchant : 0;
-            $prop->save();
+            $enchantProp->spell_id = isset($item->tooltipParams->enchant) ? $item->tooltipParams->enchant : 0;
+            $enchantProp->save();
         }
 
         // gem stuff goes here
+        if(!$socketProp = ItemProperties::where('character_gear_id', $characterGearId)->where('property', 'socket')->first()) {
+            $socketProp = new ItemProperties();
+            $socketProp->character_gear_id = $characterGearId;
+            $socketProp->property = "socket";
+        }
+
+        // needs more logic to check if socket exists but isn't filled.
+        $socketProp->spell_id = isset($item->tooltipParams->gem0) ? $item->tooltipParams->gem0 : 0;
+        $socketProp->save();
 
         return;
     }
