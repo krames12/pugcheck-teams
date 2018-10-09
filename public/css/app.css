@@ -10486,6 +10486,8 @@ a.text-dark:hover {
 }
 
 * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
   color: #212121;
 }
@@ -10496,6 +10498,18 @@ a.text-dark:hover {
 
 .wowhead-tooltip table td {
   color: white;
+}
+
+.enchant {
+  padding-bottom: 5px;
+}
+
+.enchant.all-clear {
+  border-bottom: 3px solid green;
+}
+
+.enchant.issue {
+  border-bottom: 3px solid red;
 }
 
 footer {
