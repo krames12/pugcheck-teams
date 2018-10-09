@@ -20,7 +20,7 @@ class Character extends Model
 
     public function enchantedGear()
     {
-        return $this->hasMany(CharacterGear::class)->whereIn('item_slot', ['finger1', 'finger2', 'mainHand']);
+        return $this->hasMany(CharacterGear::class)->whereIn('item_slot', ['finger1', 'finger2', 'mainHand', 'offHand']);
     }
 
     public function rosters()

@@ -34,8 +34,7 @@
 
     <div class="container mt-4">
         <div class="row">
-            <div class="col-sm-hidden col-md-3"></div>
-            <div class="col-md-4 col-sm-12 mb-3">
+            <div class="col-md-6 col-sm-12 mb-3">
                 <h3>Tanks</h3>
                 <div class="main-spec-box">
                     @if(count($tanks))
@@ -48,25 +47,26 @@
                                      alt="{{ $className }}"
                                      class="class-icon-small px-1"
                                 >
-                                <span>{{ $tank->name }}</span>
-                            </p>
-                            <p class="character-enchants pl-4 py-1">
-                                @foreach($tank->enchantedGear as $item)
-                                    @php
-                                        $bonusText = "";
-                                        $bonuses = json_decode($item->bonus_ids);
-                                        foreach($bonuses as $bonus) {
-                                            $bonusText .= $bonus.":";
-                                        }
-                                        $bonusText = substr($bonusText, 0, -1);
-                                    @endphp
-                                    <a href="#"
-                                       data-wowhead="item={{ $item->blizz_id }}
-                                            {{ $item->socket->spell_id != 0 ? "&gems=".$item->socket->spell_id : "" }}
-                                            {{ $item->enchant->spell_id != 0 ? "&ench=".$item->enchant->spell_id : "" }}
-                                            &bonus={{ $bonusText }}"
-                                    ></a>
-                                @endforeach
+                                <span class="inline-block w-25">{{ $tank->name }}</span>
+                                <span class="character-enchants pl-4 py-1 inline-block w-50">
+                                    @foreach($tank->enchantedGear as $item)
+                                        @php
+                                            $bonusText = "";
+                                            $bonuses = json_decode($item->bonus_ids);
+                                            foreach($bonuses as $bonus) {
+                                                $bonusText .= $bonus.":";
+                                            }
+                                            $bonusText = substr($bonusText, 0, -1);
+                                        @endphp
+                                        <a href="#"
+                                           class="{{ $item->enchant->spell_id != 0 ? "enchant-all-clear" : "enchant-issue" }}"
+                                           data-wowhead="item={{ $item->blizz_id }}
+                                                {{ $item->socket->spell_id != 0 ? "&gems=".$item->socket->spell_id : "" }}
+                                                {{ $item->enchant->spell_id != 0 ? "&ench=".$item->enchant->spell_id : "" }}
+                                                &bonus={{ $bonusText }}"
+                                        ></a>
+                                    @endforeach
+                                </span>
                             </p>
                         @endforeach
                     @else
@@ -74,7 +74,7 @@
                     @endif
                 </div>
             </div>
-            <div class="col-md-4 col-sm-12 mb-3">
+            <div class="col-md-6 col-sm-12 mb-3">
                 <h3>Healers</h3>
                 <div class="main-spec-box">
                     @if(count($healers))
@@ -87,7 +87,26 @@
                                      alt="{{ $className }}"
                                      class="class-icon-small px-1"
                                 >
-                                <span>{{ $healer->name }}</span>
+                                <span class="inline-block w-25">{{ $healer->name }}</span>
+                                <span class="character-enchants pl-4 py-1 inline-block w-50">
+                                    @foreach($healer->enchantedGear as $item)
+                                        @php
+                                            $bonusText = "";
+                                            $bonuses = json_decode($item->bonus_ids);
+                                            foreach($bonuses as $bonus) {
+                                                $bonusText .= $bonus.":";
+                                            }
+                                            $bonusText = substr($bonusText, 0, -1);
+                                        @endphp
+                                        <a href="#"
+                                           class="{{ $item->enchant->spell_id != 0 ? "enchant-all-clear" : "enchant-issue" }}"
+                                           data-wowhead="item={{ $item->blizz_id }}
+                                           {{ $item->socket->spell_id != 0 ? "&gems=".$item->socket->spell_id : "" }}
+                                           {{ $item->enchant->spell_id != 0 ? "&ench=".$item->enchant->spell_id : "" }}
+                                               &bonus={{ $bonusText }}"
+                                        ></a>
+                                    @endforeach
+                                </span>
                             </p>
                         @endforeach
                     @else
@@ -97,8 +116,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-hidden col-md-3"></div>
-            <div class="col-md-4 col-sm-12 mb-3">
+            <div class="col-md-6 col-sm-12 mb-3">
                 <h3>Melee DPS</h3>
                 <div class="main-spec-box">
                     @if(count($melee))
@@ -111,7 +129,26 @@
                                      alt="{{ $className }}"
                                      class="class-icon-small px-1"
                                 >
-                                <span>{{ $melee->name }}</span>
+                                <span class="inline-block w-25">{{ $melee->name }}</span>
+                                <span class="character-enchants pl-4 py-1 inline-block w-50">
+                                    @foreach($melee->enchantedGear as $item)
+                                        @php
+                                            $bonusText = "";
+                                            $bonuses = json_decode($item->bonus_ids);
+                                            foreach($bonuses as $bonus) {
+                                                $bonusText .= $bonus.":";
+                                            }
+                                            $bonusText = substr($bonusText, 0, -1);
+                                        @endphp
+                                        <a href="#"
+                                           class="{{ $item->enchant->spell_id != 0 ? "enchant-all-clear" : "enchant-issue" }}"
+                                           data-wowhead="item={{ $item->blizz_id }}
+                                           {{ $item->socket->spell_id != 0 ? "&gems=".$item->socket->spell_id : "" }}
+                                           {{ $item->enchant->spell_id != 0 ? "&ench=".$item->enchant->spell_id : "" }}
+                                               &bonus={{ $bonusText }}"
+                                        ></a>
+                                    @endforeach
+                                </span>
                             </p>
                         @endforeach
                     @else
@@ -119,7 +156,7 @@
                     @endif
                 </div>
             </div>
-            <div class="col-md-4 col-sm-12 mb-3">
+            <div class="col-md-6 col-sm-12 mb-3">
                 <h3>Ranged DPS</h3>
                 <div class="main-spec-box">
                     @if(count($ranged))
@@ -132,7 +169,26 @@
                                      alt="{{ $className }}"
                                      class="class-icon-small px-1"
                                 >
-                                <span>{{ $ranged->name }}</span>
+                                <span class="inline-block w-25">{{ $ranged->name }}</span>
+                                <span class="character-enchants pl-4 py-1 inline-block w-50">
+                                    @foreach($ranged->enchantedGear as $item)
+                                        @php
+                                            $bonusText = "";
+                                            $bonuses = json_decode($item->bonus_ids);
+                                            foreach($bonuses as $bonus) {
+                                                $bonusText .= $bonus.":";
+                                            }
+                                            $bonusText = substr($bonusText, 0, -1);
+                                        @endphp
+                                        <a href="#"
+                                           class="{{ $item->enchant->spell_id != 0 ? "enchant-all-clear" : "enchant-issue" }}"
+                                           data-wowhead="item={{ $item->blizz_id }}
+                                           {{ $item->socket->spell_id != 0 ? "&gems=".$item->socket->spell_id : "" }}
+                                           {{ $item->enchant->spell_id != 0 ? "&ench=".$item->enchant->spell_id : "" }}
+                                               &bonus={{ $bonusText }}"
+                                        ></a>
+                                    @endforeach
+                                </span>
                             </p>
                         @endforeach
                     @else
