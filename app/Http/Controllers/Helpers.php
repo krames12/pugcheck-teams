@@ -30,7 +30,7 @@ class Helpers extends Controller
         $needsEnchant = false;
 
         if($item->item_slot == "offHand") {
-            if(in_array($classId, $meleeClasses) && in_array($classSpec, $meleeOffHandSpecs)) {
+            if(isset($meleeClasses[$classId]) && isset($meleeOffHandSpecs[$classSpec])) {
                 $needsEnchant = $item->enchant->spell_id == 0 ? false : true;
             } else {
                 $needsEnchant = true;
