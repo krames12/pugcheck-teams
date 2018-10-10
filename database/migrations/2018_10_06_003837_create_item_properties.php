@@ -29,6 +29,6 @@ class CreateItemProperties extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('item_properties');
     }
 }

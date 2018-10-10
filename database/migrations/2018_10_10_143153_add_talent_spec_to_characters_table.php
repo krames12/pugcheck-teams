@@ -14,7 +14,7 @@ class AddTalentSpecToCharactersTable extends Migration
     public function up()
     {
         Schema::table('characters', function (Blueprint $table) {
-            $table->string('talent_spec');
+            $table->string('talent_spec')->after('class');
         });
     }
 
