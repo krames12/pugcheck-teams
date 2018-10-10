@@ -103,11 +103,6 @@ class Lookups extends Controller
         }
     }
 
-    public static function shouldOffHandBeEnchanted($classId)
-    {
-        return in_array($classId, array(1, 4, 6, 7, 10, 12)) ? true : false;
-    }
-
     public static function apiCharacter($characterName, $realmSlug)
     {
         $requestUrl = "https://us.api.battle.net/wow/character/$realmSlug/$characterName?fields=items,talents,audit&locale=en_US&apikey=".env('BLIZZ_KEY');

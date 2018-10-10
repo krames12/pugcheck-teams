@@ -107,6 +107,12 @@ class CharactersController extends Controller
         $newCharacter->faction = $character->faction;
         $newCharacter->item_level = $character->items->averageItemLevel;
 
+        foreach($character->talents as $talent_spec) {
+            if(isset($talent_spec->selected)) {
+                $newCharacter->talent_spec = $talent_spec->spec->name;
+            }
+        }
+
         // Save Character
         $newCharacter->save();
 
@@ -161,6 +167,12 @@ class CharactersController extends Controller
             self::updateItemProperties($key, $item, $existingItem->id);
 
             $existingItem->save();
+        }
+
+        foreach($character->talents as $talent_spec) {
+            if(isset($talent_spec->selected)) {
+                $existingCharacter->talent_spec = $talent_spec->spec->name;
+            }
         }
 
         $existingCharacter->item_level = $character->items->averageItemLevel;
