@@ -7,8 +7,15 @@ use App\Http\Controllers\Lookups;
 
 class Helpers extends Controller
 {
-    public static function shouldBeEnchanted($itemType, $classId, $classSpec)
+    public static function isItemEnchanted($item, $classId, $classSpec)
     {
+        /** Things that lead to `true`
+         * spell_id == 0
+         * item_slot not an offhand
+         * If class + spec needs enchant
+         */
+
+        $meleeClasses = array(1, 4, 6, 7, 10, 12);
         $meleeOffHandSpecs = array(
             "Frost",
             "Havoc",
@@ -20,13 +27,18 @@ class Helpers extends Controller
             "Enhancement",
             "Fury"
         );
+        $needsEnchant = false;
 
-        if($itemType != "offHand") {
-            return true;
-        } else if(in_array($classId, array(1, 4, 6, 7, 10, 12)) && in_array($classSpec, $meleeOffHandSpecs)) {
-            return true;
+        if($item->item_slot == "offHand") {
+            if(in_array($classId, $meleeClasses) && in_array($classSpec, $meleeOffHandSpecs)) {
+                $needsEnchant = $item->enchant->spell_id == 0 ? false : true;
+            } else {
+                $needsEnchant = true;
+            }
         } else {
-            return false;
+            $needsEnchant = $item->enchant->spell_id == 0 ? false : true;
         }
+
+        return $needsEnchant;
     }
 }

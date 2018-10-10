@@ -60,7 +60,10 @@
                                             $bonusText = substr($bonusText, 0, -1);
                                         @endphp
                                         <a href="#"
-                                           class="{{ $item->enchant->spell_id != 0 ? "enchant all-clear" : "enchant issue" }}"
+                                           class="enchant
+                                                 {{ \App\Http\Controllers\Helpers::isItemEnchanted($item, $tank->class, $tank->talent_spec) ?
+                                                 "all-clear" : "issue" }}
+                                               "
                                            data-wowhead="item={{ $item->blizz_id }}
                                                 {{ $item->socket->spell_id != 0 ? "&gems=".$item->socket->spell_id : "" }}
                                                 {{ $item->enchant->spell_id != 0 ? "&ench=".$item->enchant->spell_id : "" }}
@@ -100,7 +103,10 @@
                                             $bonusText = substr($bonusText, 0, -1);
                                         @endphp
                                         <a href="#"
-                                           class="{{ $item->enchant->spell_id != 0 ? "enchant all-clear" : "enchant issue" }}"
+                                           class="enchant
+                                                 {{ \App\Http\Controllers\Helpers::isItemEnchanted($item, $tank->class, $tank->talent_spec) ?
+                                                 "all-clear" : "issue" }}
+                                               "
                                            data-wowhead="item={{ $item->blizz_id }}
                                            {{ $item->socket->spell_id != 0 ? "&gems=".$item->socket->spell_id : "" }}
                                            {{ $item->enchant->spell_id != 0 ? "&ench=".$item->enchant->spell_id : "" }}
@@ -143,7 +149,10 @@
                                             $bonusText = substr($bonusText, 0, -1);
                                         @endphp
                                         <a href="#"
-                                           class="{{ $item->enchant->spell_id != 0 ? "enchant all-clear" : "enchant issue" }}"
+                                           class="enchant
+                                                 {{ \App\Http\Controllers\Helpers::isItemEnchanted($item, $tank->class, $tank->talent_spec) ?
+                                                 "all-clear" : "issue" }}
+                                               "
                                            data-wowhead="item={{ $item->blizz_id }}
                                            {{ $item->socket->spell_id != 0 ? "&gems=".$item->socket->spell_id : "" }}
                                            {{ $item->enchant->spell_id != 0 ? "&ench=".$item->enchant->spell_id : "" }}
@@ -183,7 +192,10 @@
                                             $bonusText = substr($bonusText, 0, -1);
                                         @endphp
                                         <a href="#"
-                                           class="{{ $item->enchant->spell_id != 0 ? "enchant all-clear" : "enchant issue" }}"
+                                           class="enchant
+                                                 {{ \App\Http\Controllers\Helpers::isItemEnchanted($item, $tank->class, $tank->talent_spec) ?
+                                                 "all-clear" : "issue" }}
+                                               "
                                            data-wowhead="item={{ $item->blizz_id }}
                                            {{ $item->socket->spell_id != 0 ? "&gems=".$item->socket->spell_id : "" }}
                                            {{ $item->enchant->spell_id != 0 ? "&ench=".$item->enchant->spell_id : "" }}
