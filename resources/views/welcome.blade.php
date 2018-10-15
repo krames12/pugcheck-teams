@@ -6,13 +6,14 @@
             <a href="{{ route('createRoster') }}" class="float-right btn bg-blue rounded text-white px-2 py-2">New Team</a>
         </div>
         <div class="mt-6">
-            <h3 class="text-center m-2">Welcome to alpha!</h3>
+            <h3 class="text-center m-2">Welcome to <strong>Pug</strong>Check Teams!</h3>
             <div class="max-w-md mx-auto">
                 <p>This is PugCheck Teams! The goal of this site is to help raid leaders organize their teams.</p>
+                <p class="m-3">All accounts, characters, and teams that were added prior to October 15th, 2018 have been removed for technical reasons. I apologize for the inconvenience.</p>
                 <p>The end goal is to track whether members have their gear is gemmed or enchanted, as well as azerite level and traits. Since this is the Alpha, the app currently allows users to create teams and add characters to them. The characters and their gear are pulled in from Blizzard's servers.</p>
                 <p class="mt-2"><strong>Upcoming Features</strong></p>
                 <ul>
-                    <li>Gems & enchants</li>
+                    <li>Gems</li>
                     <li>Interface improvements</li>
                     <li>Team groups (more info <a href="https://github.com/krames12/pugcheck-teams/issues/2">here</a>)</li>
                 </ul>
