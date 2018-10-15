@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Character;
 use App\CharacterGear;
+use App\ItemProperties;
 use App\Realm;
 use App\Roster;
 
@@ -106,6 +107,12 @@ class CharactersController extends Controller
         $newCharacter->faction = $character->faction;
         $newCharacter->item_level = $character->items->averageItemLevel;
 
+        foreach($character->talents as $talent_spec) {
+            if(isset($talent_spec->selected)) {
+                $newCharacter->talent_spec = $talent_spec->spec->name;
+            }
+        }
+
         // Save Character
         $newCharacter->save();
 
@@ -120,6 +127,7 @@ class CharactersController extends Controller
             $newItem->item_slot = $key;
             $newItem->name = $item->name;
             $newItem->item_level = $item->itemLevel;
+            $newItem->bonus_ids = json_encode($item->bonusLists);
 
             if($key == "neck"){
                 $characterInfo = Character::find($newCharacter->id);
@@ -128,6 +136,8 @@ class CharactersController extends Controller
             }
 
             $newItem->save();
+
+            self::updateItemProperties($key, $item, $newItem->id);
         }
 
         return $newCharacter->id;
@@ -148,17 +158,56 @@ class CharactersController extends Controller
             $existingItem->item_slot = $key;
             $existingItem->name = $item->name;
             $existingItem->item_level = $item->itemLevel;
+            $existingItem->bonus_ids = json_encode($item->bonusLists);
 
             if($key == "neck"){
                 $existingCharacter->azerite_level = $item->azeriteItem->azeriteLevel;
             }
 
+            self::updateItemProperties($key, $item, $existingItem->id);
+
             $existingItem->save();
+        }
+
+        foreach($character->talents as $talent_spec) {
+            if(isset($talent_spec->selected)) {
+                $existingCharacter->talent_spec = $talent_spec->spec->name;
+            }
         }
 
         $existingCharacter->item_level = $character->items->averageItemLevel;
         $existingCharacter->save();
 
         return $existingCharacter->id;
+    }
+
+    private static function updateItemProperties($itemSlot, $item, $characterGearId)
+    {
+        // @TODO figure out empty gem slots. Only implementing enchants on rings and wep for now.
+
+        // enchant specific for now
+
+        // check to see if "enchant" field exists on that item id
+        if(!$enchantProp = ItemProperties::where('character_gear_id', $characterGearId)->where('property', 'enchant')->first()) {
+            $enchantProp = new ItemProperties();
+            $enchantProp->character_gear_id = $characterGearId;
+            $enchantProp->property = "enchant";
+        }
+
+        $enchantProp->spell_id = isset($item->tooltipParams->enchant) ? $item->tooltipParams->enchant : 0;
+        $enchantProp->save();
+
+        // gem stuff goes here
+        if(!$socketProp = ItemProperties::where('character_gear_id', $characterGearId)->where('property', 'socket')->first()) {
+            $socketProp = new ItemProperties();
+            $socketProp->character_gear_id = $characterGearId;
+            $socketProp->property = "socket";
+        }
+
+        // needs more logic to check if socket exists but isn't filled.
+        $socketProp->spell_id = isset($item->tooltipParams->gem0) ? $item->tooltipParams->gem0 : 0;
+        $socketProp->save();
+
+        return;
     }
 }
