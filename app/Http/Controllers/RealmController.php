@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\BlizzardOAuth2;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
@@ -12,9 +13,15 @@ use App\Realm;
 class RealmController extends Controller
 {
     public function updateRealms() {
-        $requestUrl = "https://us.api.battle.net/wow/realm/status?locale=en_US&apikey=".env('BLIZZ_KEY');
+        $requestUrl = "https://us.api.blizzard.com/wow/realm/status?locale=en_US";
 
-        $client = new Client();
+        $bnet = new BlizzardOAuth2();
+        $authToken = $bnet->oAuthTokenGenerator();
+
+        $client = new Client([
+            'handler' => $authToken,
+            'auth' => 'oauth',
+        ]);
 
         try
         {
