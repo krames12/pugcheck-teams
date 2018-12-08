@@ -7,7 +7,7 @@
             method="POST"
             {{ action('CharactersController@importCharacter', [ 'id' => $roster->id ]) }}
             class="bg-white shadow-md rounded px-4 py-6"
-            onSubmit="awaitResponse()"
+            onSubmit="awaitResponse('Importing')"
         >
             {{ csrf_field() }}
             <input type="hidden" name="roster" value="{{ $roster->id }}">

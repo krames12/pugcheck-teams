@@ -7,10 +7,22 @@
                 <i class="edit-icon far fa-edit"></i>
             </a>
         @endcan
-        <form action="/rosters/{{ $roster->id }}/update" method="POST" class="inline-block">
+        <form
+            action="/rosters/{{ $roster->id }}/update"
+            method="POST"
+            class="inline-block"
+            onSubmit="awaitResponse('Updating')"
+        >
             {{ csrf_field() }}
             {{ method_field("PATCH") }}
-            <button type="submit" class="text-base align-middle btn border bg-blue hover:bg-blue-dark text-white rounded"><i class="fas fa-sync-alt text-white"></i> Update Characters</button>
+            <button
+                    type="submit"
+                    class="text-base align-middle btn border bg-blue hover:bg-blue-dark text-white rounded"
+                    id="await-request-button"
+            >
+                <i class="fas fa-sync-alt text-white"></i>
+                Update Characters
+            </button>
         </form>
         @can('update-roster', $roster)
             <div class="float-right text-right">
@@ -281,6 +293,7 @@
         @endif
     </div>
 
+    <script src="/js/buttonDisableOnApiRequest.js"></script>
     <script>
         document.getElementById('import-dropdown').addEventListener('click', event => {
             document.getElementById('import-dropdown-menu').classList.toggle('hidden');
