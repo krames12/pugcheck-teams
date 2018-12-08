@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\BlizzardOAuth2;
 use App\Roster;
 use App\Realm;
 use App\RosterCharacter;
@@ -163,15 +164,22 @@ class RosterController extends Controller
     /**
      * Import members from a guild to the roster.
      *
-     * @param int $rosterId
+     * @param Roster $roster
      * @return \Illuminate\Http\Response
     */
     public function import(Roster $roster)
     {
         $realmSlug = $roster->realm->slug;
-        $requestUrl = "https://us.api.battle.net/wow/guild/$realmSlug/$roster->guild_name?fields=members&locale=en_US&apikey=".env('BLIZZ_KEY');
+        $requestUrl = "https://us.api.blizzard.com/wow/guild/$realmSlug/$roster->guild_name?fields=members&locale=en_US";
 
-        $client = new Client();
+        $bnet = new BlizzardOAuth2();
+        $authToken = $bnet->oAuthTokenGenerator();
+
+        $client = new Client([
+            'handler' => $authToken,
+            'auth' => 'oauth',
+        ]);
+
         try {
             $res = $client->request('GET', $requestUrl);
             $response = json_decode($res->getBody());
