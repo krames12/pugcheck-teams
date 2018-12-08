@@ -104,12 +104,9 @@ class Lookups extends Controller
         }
     }
 
-    public static function apiCharacter($characterName, $realmSlug)
+    public static function apiCharacter($authToken, $characterName, $realmSlug)
     {
         $requestUrl = "https://us.api.blizzard.com/wow/character/$realmSlug/$characterName?fields=items,talents,audit&locale=en_US";
-
-        $bnet = new BlizzardOAuth2();
-        $authToken = $bnet->oAuthTokenGenerator();
 
         $client = new Client([
             'handler' => $authToken,

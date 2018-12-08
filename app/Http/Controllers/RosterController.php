@@ -203,11 +203,14 @@ class RosterController extends Controller
     {
         $existingCharacters = $roster->characters->whereIn('name', $request->characters);
 
+        $bnet = new BlizzardOAuth2();
+        $authToken = $bnet->oAuthTokenGenerator();
+
         foreach($request->characters as $character) {
             if(!$existingCharacters->contains('name', $character)) {
                 $character = Lookups::apiCharacter($character, $roster->realm->slug);
 
-                $rosterCharacter = CharactersController::handleCharacterImport($character, $roster->realm->id);
+                $rosterCharacter = CharactersController::handleCharacterImport($authToken, $character, $roster->realm->id);
                 $roster->characters()->attach($rosterCharacter, ['main_spec' => 'unassigned', 'off_spec' => 'unassigned']);
             }
         }
@@ -219,9 +222,13 @@ class RosterController extends Controller
     public function updateCharacters(Roster $roster)
     {
         $characters = $roster->characters;
+
+        $bnet = new BlizzardOAuth2();
+        $authToken = $bnet->oAuthTokenGenerator();
+
         foreach($characters as $character) {
             $realm = Realm::find($character->realm);
-            $apiCharacter = Lookups::apiCharacter($character->name, $realm->slug);
+            $apiCharacter = Lookups::apiCharacter($authToken, $character->name, $realm->slug);
             CharactersController::updateCharacter($apiCharacter, $character);
         }
 

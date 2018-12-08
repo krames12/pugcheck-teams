@@ -8,6 +8,7 @@ use App\ItemProperties;
 use App\Realm;
 use App\Roster;
 
+use App\Http\BlizzardOAuth2;
 use App\Http\Controllers\Lookups;
 
 use Illuminate\Http\Request;
@@ -70,7 +71,11 @@ class CharactersController extends Controller
         ]);
 
         $realm = Realm::find(request('realm'));
-        $character = Lookups::apiCharacter(request('name'), $realm->slug);
+
+        $bnet = new BlizzardOAuth2();
+        $authToken = $bnet->oAuthTokenGenerator();
+
+        $character = Lookups::apiCharacter($authToken, request('name'), $realm->slug);
         if(isset($character->name)) {
             $importedCharacter = $this::handleCharacterImport($character, request('realm'));
             $roster->characters()->attach($importedCharacter, ['main_spec' => 'unassigned', 'off_spec' => 'unassigned']);
