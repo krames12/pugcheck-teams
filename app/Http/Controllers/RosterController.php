@@ -208,7 +208,7 @@ class RosterController extends Controller
 
         foreach($request->characters as $character) {
             if(!$existingCharacters->contains('name', $character)) {
-                $character = Lookups::apiCharacter($character, $roster->realm->slug);
+                $character = Lookups::apiCharacter($authToken, $character, $roster->realm->slug);
 
                 $rosterCharacter = CharactersController::handleCharacterImport($authToken, $character, $roster->realm->id);
                 $roster->characters()->attach($rosterCharacter, ['main_spec' => 'unassigned', 'off_spec' => 'unassigned']);
